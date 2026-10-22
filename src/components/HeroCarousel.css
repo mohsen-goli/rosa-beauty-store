@@ -1,0 +1,102 @@
+/* src/components/HeroCarousel.css */
+.hero-carousel-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  background-color: var(
+    --color-bg-secondary
+  ); /* پس‌زمینه کرم برای زمان‌هایی که عکس کامل کادر رو پر نمی‌کنه */
+}
+
+.hero-carousel-bg__slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: background-image 0.5s ease;
+}
+
+/* لایه‌ی گرادیان */
+.hero-carousel-bg__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(247, 242, 236, 0.95) 0%,
+    rgba(247, 242, 236, 0.7) 40%,
+    rgba(247, 242, 236, 0) 100%
+  );
+  z-index: 1;
+}
+
+.hero-carousel-bg__dots {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.4);
+  padding: 6px 12px;
+  border-radius: 20px;
+  backdrop-filter: blur(4px);
+}
+
+.hero-carousel-bg__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.2);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.hero-carousel-bg__dot.active {
+  background-color: var(--color-text-main);
+  width: 24px;
+  border-radius: 10px;
+}
+
+/* =========================================
+   ریسپانسیو موبایل: نمایش کامل عکس بدون زوم
+   ========================================= */
+@media (max-width: 900px) {
+  /* گرادیان رو عمودی می‌کنیم تا متن روی پس‌زمینه روشن قرار بگیره */
+  .hero-carousel-bg__overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(253, 251, 247, 0.4) 0%,
+      rgba(253, 251, 247, 0.6) 50%,
+      rgba(253, 251, 247, 0.4) 100%
+    );
+  }
+
+  /* عکس رو به contain تغییر می‌دیم تا کامل دیده بشه (زوم نشه) */
+  .hero-carousel-bg__slide {
+    background-size: contain !important;
+    background-position: center center !important;
+    background-color: var(
+      --color-bg-secondary
+    ) !important; /* فضای خالی با رنگ کرم پر میشه */
+  }
+
+  /* نقطه‌ها رو وسط‌چین می‌کنیم */
+  .hero-carousel-bg__dots {
+    bottom: 20px;
+    right: 50%;
+    transform: translateX(50%);
+  }
+}

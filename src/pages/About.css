@@ -1,0 +1,184 @@
+/* src/pages/About.css */
+.about-page {
+  padding: var(--spacing-xl) 0 var(--spacing-2xl);
+  background-color: var(--color-bg-primary);
+  min-height: 80vh;
+}
+
+.about-page .back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  margin-bottom: var(--spacing-xl);
+  transition: color 0.2s;
+}
+
+.about-page .back-link:hover {
+  color: var(--color-primary);
+}
+
+.about-header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto var(--spacing-2xl);
+}
+
+.about-header__subtitle {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--color-primary-dark);
+  margin-bottom: var(--spacing-sm);
+}
+
+.about-header__title {
+  font-size: 52px;
+  line-height: 1.2;
+  margin-bottom: var(--spacing-md);
+  color: var(--color-text-main);
+}
+
+.text-primary {
+  color: var(--color-primary);
+  font-style: italic;
+}
+
+.about-header__description {
+  font-size: 17px;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+/* بخش داستان */
+.about-story {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-2xl);
+  align-items: center;
+  margin-bottom: var(--spacing-2xl);
+}
+
+.about-story__image {
+  border-radius: 20px;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  box-shadow: var(--shadow-lg);
+}
+
+.about-story__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.about-story__content h2 {
+  font-size: 36px;
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-text-main);
+}
+
+.about-story__content p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  margin-bottom: var(--spacing-md);
+}
+
+/* ارزش‌ها */
+.about-values {
+  margin-bottom: var(--spacing-2xl);
+  text-align: center;
+}
+
+.about-values__title {
+  font-size: 36px;
+  margin-bottom: var(--spacing-xl);
+  color: var(--color-text-main);
+}
+
+.about-values__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-lg);
+}
+
+.value-card {
+  background-color: var(--color-white);
+  padding: var(--spacing-xl) var(--spacing-lg);
+  border-radius: 16px;
+  border: 1px solid var(--color-border);
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
+}
+
+.value-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+.value-card__icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: var(--color-bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  margin: 0 auto var(--spacing-md);
+}
+
+.value-card h3 {
+  font-size: 18px;
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-text-main);
+}
+
+.value-card p {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+/* CTA */
+.about-cta {
+  text-align: center;
+  padding: var(--spacing-2xl) var(--spacing-lg);
+  background-color: var(--color-bg-secondary);
+  border-radius: 20px;
+}
+
+.about-cta h2 {
+  font-size: 32px;
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-text-main);
+}
+
+/* --- ریسپانسیو --- */
+@media (max-width: 900px) {
+  .about-header__title {
+    font-size: 36px;
+  }
+  .about-story {
+    grid-template-columns: 1fr;
+  }
+  .about-values__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .about-header__title {
+    font-size: 28px;
+  }
+  .about-values__grid {
+    grid-template-columns: 1fr;
+  }
+  .about-cta h2 {
+    font-size: 24px;
+  }
+}

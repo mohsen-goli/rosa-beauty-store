@@ -1,0 +1,105 @@
+/* src/pages/CategoryPage.css */
+.category-page {
+  padding: var(--spacing-xl) 0 var(--spacing-2xl);
+  background-color: var(--color-bg-primary);
+  min-height: 80vh;
+}
+
+/* لینک بازگشت */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  margin-bottom: var(--spacing-xl);
+  transition: color 0.2s;
+}
+
+.back-link:hover {
+  color: var(--color-primary);
+}
+
+/* هدر صفحه */
+.category-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: var(--spacing-2xl);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 1px solid var(--color-border);
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.category-header__subtitle {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--color-primary-dark);
+  margin-bottom: var(--spacing-xs);
+}
+
+.category-header__title {
+  font-size: 42px;
+  color: var(--color-text-main);
+  margin-bottom: var(--spacing-xs);
+}
+
+.category-header__count {
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+/* مرتب‌سازی */
+.category-sort {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  background-color: var(--color-white);
+  padding: 10px 16px;
+  border-radius: 50px;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-main);
+}
+
+.category-sort__select {
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-main);
+  cursor: pointer;
+  outline: none;
+  font-family: var(--font-sans);
+}
+
+/* پیام خالی */
+.not-found {
+  text-align: center;
+  padding: var(--spacing-2xl) 0;
+}
+
+.not-found p {
+  font-size: 16px;
+  color: var(--color-text-muted);
+  margin-bottom: var(--spacing-lg);
+}
+
+/* --- ریسپانسیو --- */
+@media (max-width: 768px) {
+  .category-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .category-header__title {
+    font-size: 32px;
+  }
+
+  .category-sort {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

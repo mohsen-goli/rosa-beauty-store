@@ -1,0 +1,36 @@
+/* src/components/TopBar.css */
+.top-bar {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  font-size: 12px;
+  padding: var(--spacing-sm) 0;
+  width: 100%;
+}
+
+.top-bar__container {
+  width: 100% !important;
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding: 0 var(--spacing-lg) !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.top-bar__item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-weight: 400;
+}
+
+@media (max-width: 768px) {
+  .top-bar__container {
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    text-align: center;
+  }
+  .top-bar__item {
+    font-size: 10px;
+  }
+}

@@ -1,0 +1,107 @@
+/* src/pages/SearchPage.css */
+.search-page {
+  padding: var(--spacing-xl) 0 var(--spacing-2xl);
+  background-color: var(--color-bg-primary);
+  min-height: 80vh;
+}
+
+.search-page .back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  margin-bottom: var(--spacing-lg);
+  transition: color 0.2s;
+}
+
+.search-page .back-link:hover {
+  color: var(--color-primary);
+}
+
+.search-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-2xl);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.search-header__icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: var(--color-bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.search-header__subtitle {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--color-primary-dark);
+  margin-bottom: var(--spacing-xs);
+}
+
+.search-header__title {
+  font-size: 42px;
+  color: var(--color-text-main);
+  margin-bottom: var(--spacing-xs);
+  word-break: break-word;
+}
+
+.search-header__count {
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+/* بدون نتیجه */
+.no-results {
+  text-align: center;
+  padding: var(--spacing-2xl) 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.no-results svg {
+  color: var(--color-text-muted);
+  opacity: 0.5;
+  margin-bottom: var(--spacing-md);
+}
+
+.no-results h2 {
+  font-size: 28px;
+  color: var(--color-text-main);
+  margin-bottom: var(--spacing-sm);
+}
+
+.no-results p {
+  color: var(--color-text-muted);
+  max-width: 500px;
+  margin-bottom: var(--spacing-xs);
+}
+
+.no-results .btn {
+  margin-top: var(--spacing-lg);
+}
+
+/* --- ریسپانسیو --- */
+@media (max-width: 768px) {
+  .search-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+  }
+
+  .search-header__title {
+    font-size: 32px;
+  }
+}

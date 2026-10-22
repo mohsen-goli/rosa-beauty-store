@@ -1,0 +1,273 @@
+/* src/pages/Checkout.css */
+.checkout-page {
+  padding: var(--spacing-xl) 0 var(--spacing-2xl);
+  background-color: var(--color-bg-primary);
+  min-height: 80vh;
+}
+
+.checkout-page .back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  margin-bottom: var(--spacing-lg);
+  transition: color 0.2s;
+}
+
+.checkout-page .back-link:hover {
+  color: var(--color-primary);
+}
+
+.checkout-title {
+  font-size: 42px;
+  margin-bottom: var(--spacing-2xl);
+  color: var(--color-text-main);
+}
+
+.checkout-layout {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: var(--spacing-xl);
+  align-items: start;
+}
+
+/* فرم */
+.checkout-form {
+  background-color: var(--color-white);
+  padding: var(--spacing-xl);
+  border-radius: 20px;
+  border: 1px solid var(--color-border);
+}
+
+.form-section {
+  margin-bottom: var(--spacing-xl);
+}
+
+.form-section__title {
+  font-size: 20px;
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--color-text-main);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-field--full {
+  grid-column: 1 / -1;
+}
+
+.form-field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-main);
+}
+
+.form-field input {
+  padding: 12px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: var(--font-sans);
+  background-color: var(--color-bg-primary);
+  transition: border-color 0.2s;
+}
+
+.form-field input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.form-field input.error {
+  border-color: #d9534f;
+}
+
+.error-text {
+  font-size: 11px;
+  color: #d9534f;
+}
+
+.checkout-submit {
+  width: 100%;
+  padding: 16px;
+  margin-top: var(--spacing-md);
+  font-size: 14px;
+}
+
+.checkout-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* خلاصه سفارش */
+.checkout-summary {
+  background-color: var(--color-white);
+  padding: var(--spacing-xl);
+  border-radius: 20px;
+  border: 1px solid var(--color-border);
+  position: sticky;
+  top: 100px;
+}
+
+.checkout-summary h3 {
+  font-size: 20px;
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-text-main);
+}
+
+.summary-items {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: var(--spacing-md);
+}
+
+.summary-item {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.summary-item__image {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: var(--color-bg-secondary);
+  flex-shrink: 0;
+}
+
+.summary-item__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.summary-item__qty {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.summary-item__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.summary-item__info p {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.summary-item__info span {
+  font-size: 13px;
+  color: var(--color-primary-dark);
+  font-weight: 600;
+}
+
+.summary-divider {
+  height: 1px;
+  background-color: var(--color-border);
+  margin: var(--spacing-md) 0;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: var(--color-text-muted);
+  margin-bottom: var(--spacing-sm);
+}
+
+.summary-row .free {
+  color: #4caf50;
+  font-weight: 600;
+}
+
+.summary-total {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text-main);
+}
+
+.summary-trust {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--color-border);
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+/* سبد خالی */
+.empty-cart {
+  text-align: center;
+  padding: var(--spacing-2xl) 0;
+}
+
+.empty-cart h2 {
+  font-size: 28px;
+  margin-bottom: var(--spacing-sm);
+}
+
+.empty-cart p {
+  color: var(--color-text-muted);
+  margin-bottom: var(--spacing-lg);
+}
+
+/* --- ریسپانسیو --- */
+@media (max-width: 900px) {
+  .checkout-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .checkout-summary {
+    position: static;
+  }
+
+  .checkout-title {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 600px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .checkout-form,
+  .checkout-summary {
+    padding: var(--spacing-lg);
+  }
+}

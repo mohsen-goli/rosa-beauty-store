@@ -1,0 +1,94 @@
+/* src/pages/WishlistPage.css */
+.wishlist-page {
+  padding: var(--spacing-xl) 0 var(--spacing-2xl);
+  background-color: var(--color-bg-primary);
+  min-height: 80vh;
+}
+
+.wishlist-page .back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  margin-bottom: var(--spacing-lg);
+  transition: color 0.2s;
+}
+
+.wishlist-page .back-link:hover {
+  color: var(--color-primary);
+}
+
+.wishlist-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: var(--spacing-2xl);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 1px solid var(--color-border);
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.wishlist-title {
+  font-size: 42px;
+  color: var(--color-text-main);
+  margin-bottom: var(--spacing-xs);
+}
+
+.wishlist-count {
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+.wishlist-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+/* لیست خالی */
+.empty-wishlist {
+  text-align: center;
+  padding: var(--spacing-2xl) 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.empty-wishlist svg {
+  color: var(--color-text-muted);
+  opacity: 0.5;
+}
+
+.empty-wishlist h2 {
+  font-size: 28px;
+  color: var(--color-text-main);
+}
+
+.empty-wishlist p {
+  color: var(--color-text-muted);
+  margin-bottom: var(--spacing-lg);
+}
+
+/* --- ریسپانسیو --- */
+@media (max-width: 768px) {
+  .wishlist-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .wishlist-title {
+    font-size: 32px;
+  }
+
+  .wishlist-actions {
+    width: 100%;
+  }
+
+  .wishlist-actions .btn {
+    flex: 1;
+  }
+}
