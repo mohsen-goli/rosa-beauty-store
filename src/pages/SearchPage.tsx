@@ -1,6 +1,6 @@
-import { useSearchParams, Link } from "react-router-dom";
+﻿import { useSearchParams, Link } from "react-router-dom";
 import { Search, ArrowLeft } from "lucide-react";
-import { products } from "../data/products";
+import { useProducts } from "../context/ProductsContext";
 import { useCart } from "../context/CartContext";
 import ProductCard from "../components/ProductCard";
 import "./SearchPage.css";
@@ -9,8 +9,9 @@ function SearchPage() {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("q") || "";
   const { addToCart } = useCart();
+  const { products } = useProducts();
 
-  // فیلتر کردن محصولات بر اساس عبارت جستجو
+  // ظپغŒظ„طھط± ع©ط±ط¯ظ† ظ…ط­طµظˆظ„ط§طھ ط¨ط± ط§ط³ط§ط³ ط¹ط¨ط§ط±طھ ط¬ط³طھط¬ظˆ
   const filteredProducts = products.filter(
     (product) =>
       product.name.toLowerCase().includes(query.toLowerCase()) ||
@@ -65,3 +66,5 @@ function SearchPage() {
 }
 
 export default SearchPage;
+
+

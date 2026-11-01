@@ -1,23 +1,24 @@
-import { useState, useEffect, useRef } from "react";
+﻿import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Search, X } from "lucide-react";
-import { products } from "../data/products";
+import { useProducts } from "../context/ProductsContext";
 
 function SearchBar() {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
+  const { products } = useProducts();
   const inputRef = useRef(null);
   const wrapperRef = useRef(null);
 
-  // فوکوس روی input وقتی باز می‌شه
+  // ظپظˆع©ظˆط³ ط±ظˆغŒ input ظˆظ‚طھغŒ ط¨ط§ط² ظ…غŒâ€Œط´ظ‡
   useEffect(() => {
     if (isOpen && inputRef.current) {
       inputRef.current.focus();
     }
   }, [isOpen]);
 
-  // بستن با Esc
+  // ط¨ط³طھظ† ط¨ط§ Esc
   useEffect(() => {
     function handleKey(e) {
       if (e.key === "Escape") {
@@ -29,7 +30,7 @@ function SearchBar() {
     return () => window.removeEventListener("keydown", handleKey);
   }, []);
 
-  // بستن با کلیک بیرون
+  // ط¨ط³طھظ† ط¨ط§ ع©ظ„غŒع© ط¨غŒط±ظˆظ†
   useEffect(() => {
     function handleClick(e) {
       if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
@@ -121,3 +122,5 @@ function SearchBar() {
 }
 
 export default SearchBar;
+
+

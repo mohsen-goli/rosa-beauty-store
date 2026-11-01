@@ -1,4 +1,4 @@
-import type { Product } from "../types";
+﻿import type { Product } from "../types";
 
 export const products: Product[] = [
   {
@@ -52,9 +52,10 @@ export const products: Product[] = [
 ];
 
 export function getProductById(id: string | number) {
-  return products.find((p) => p.id === Number(id));
+  return products.find((p) => String(p.id) === String(id));
 }
 
 export function getProductsByCategory(category: string) {
   return products.filter((p) => p.category === category);
 }
+

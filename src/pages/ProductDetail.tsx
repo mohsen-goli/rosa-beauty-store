@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
@@ -10,7 +10,7 @@ import {
   ShieldCheck,
   RotateCcw,
 } from "lucide-react";
-import { products } from "../data/products";
+import { useProducts } from "../context/ProductsContext";
 import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
 import { useToast } from "../components/ToastProvider";
@@ -20,21 +20,38 @@ import "./ProductDetail.css";
 function ProductDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
+
   const { addToCart } = useCart();
   const { toggleWishlist, isInWishlist } = useWishlist();
   const { showSuccess } = useToast();
+  const { products, loading: productsLoading } = useProducts();
 
   const [quantity, setQuantity] = useState(1);
-  
-const [loadedId, setLoadedId] = useState<string | undefined>(undefined);
-const isLoading = loadedId !== id;
-  const product = products.find((p) => p.id === parseInt(id));
+  const [loadedId, setLoadedId] = useState<string | undefined>(undefined);
 
- useEffect(() => {
-  const timer = setTimeout(() => setLoadedId(id), 500);
-  return () => clearTimeout(timer);
-}, [id]);
+  const isLoading = productsLoading || loadedId !== id;
 
+  // UUID ط±ط§ ط¨ظ‡ ط¹ط¯ط¯ طھط¨ط¯غŒظ„ ظ†ظ…غŒâ€Œع©ظ†غŒظ….
+  // طھط¨ط¯غŒظ„ ظ‡ط± ط¯ظˆ ط·ط±ظپ ط¨ظ‡ string ط¨ط§ ط´ظ†ط§ط³ظ‡â€Œظ‡ط§غŒ ظ‚ط¯غŒظ…غŒ ظˆ ط¬ط¯غŒط¯ ط³ط§ط²ع¯ط§ط± ط§ط³طھ.
+  const product = products.find((p) => String(p.id) === id);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoadedId(id), 500);
+    return () => clearTimeout(timer);
+  }, [id]);
+
+  if (isLoading) {
+    return (
+      <div className="product-detail">
+        <div className="container">
+          <div className="skeleton-detail">
+            <div className="skeleton-image" />
+            <div className="skeleton-info" />
+          </div>
+        </div>
+      </div>
+    );
+  }
   if (!product) {
     return (
       <div className="product-detail">
@@ -53,7 +70,9 @@ const isLoading = loadedId !== id;
   const inWishlist = isInWishlist(product.id);
 
   const relatedProducts = products
-    .filter((p) => p.category === product.category && p.id !== product.id)
+    .filter(
+      (p) => p.category === product.category && p.id !== product.id,
+    )
     .slice(0, 4);
 
   const handleAddToCart = () => {
@@ -83,7 +102,6 @@ const isLoading = loadedId !== id;
     );
   }
 
-  // نمونه نظرات (بعداً از دیتابیس می‌خونی)
   const reviews = [
     {
       id: 1,
@@ -128,7 +146,9 @@ const isLoading = loadedId !== id;
             <img src={product.image} alt={product.name} />
             {product.isNew && <span className="badge badge--new">NEW</span>}
             {product.discount && (
-              <span className="badge badge--sale">-{product.discount}%</span>
+              <span className="badge badge--sale">
+                -{product.discount}%
+              </span>
             )}
           </div>
 
@@ -143,7 +163,9 @@ const isLoading = loadedId !== id;
                     key={i}
                     size={16}
                     fill={
-                      i < Math.floor(product.rating) ? "#E8A0A8" : "transparent"
+                      i < Math.floor(product.rating)
+                        ? "#E8A0A8"
+                        : "transparent"
                     }
                     stroke="#E8A0A8"
                   />
@@ -169,11 +191,15 @@ const isLoading = loadedId !== id;
             <div className="product-main__quantity">
               <label>Quantity:</label>
               <div className="quantity-selector">
-                <button onClick={() => setQuantity(Math.max(1, quantity - 1))}>
+                <button
+                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                >
                   -
                 </button>
                 <span>{quantity}</span>
-                <button onClick={() => setQuantity(quantity + 1)}>+</button>
+                <button onClick={() => setQuantity(quantity + 1)}>
+                  +
+                </button>
               </div>
             </div>
 
@@ -181,9 +207,11 @@ const isLoading = loadedId !== id;
               <button className="btn btn--primary" onClick={handleAddToCart}>
                 <ShoppingBag size={18} /> Add to Cart
               </button>
+
               <button className="btn btn--outline" onClick={handleBuyNow}>
                 Buy Now
               </button>
+
               <button
                 className={`wishlist-btn ${inWishlist ? "active" : ""}`}
                 onClick={handleWishlist}
@@ -219,15 +247,19 @@ const isLoading = loadedId !== id;
             <div className="section__header">
               <h2 className="section__title">You May Also Like</h2>
             </div>
+
             <div className="products-grid">
               {relatedProducts.map((p) => (
-                <ProductCard key={p.id} product={p} onAddToCart={addToCart} />
+                <ProductCard
+                  key={p.id}
+                  product={p}
+                  onAddToCart={addToCart}
+                />
               ))}
             </div>
           </section>
         )}
 
-        {/* بخش نظرات */}
         <section className="section reviews-section">
           <div className="section__header">
             <h2 className="section__title">Customer Reviews</h2>
@@ -246,6 +278,7 @@ const isLoading = loadedId !== id;
                   <div className="review-card__avatar">
                     {review.name.charAt(0)}
                   </div>
+
                   <div>
                     <h4 className="review-card__name">{review.name}</h4>
                     <div className="review-card__stars">
@@ -253,14 +286,18 @@ const isLoading = loadedId !== id;
                         <Star
                           key={i}
                           size={14}
-                          fill={i < review.rating ? "#E8A0A8" : "transparent"}
+                          fill={
+                            i < review.rating ? "#E8A0A8" : "transparent"
+                          }
                           stroke="#E8A0A8"
                         />
                       ))}
                     </div>
                   </div>
+
                   <span className="review-card__date">{review.date}</span>
                 </div>
+
                 <p className="review-card__comment">{review.comment}</p>
               </div>
             ))}
@@ -272,3 +309,6 @@ const isLoading = loadedId !== id;
 }
 
 export default ProductDetail;
+
+
+

@@ -1,9 +1,9 @@
-
+﻿
 import { useState, useEffect, useRef, useMemo, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Search, User, ShoppingBag, Menu, X } from "lucide-react";
 import { useCart } from "../context/CartContext";
-import { products } from "../data/products";
+import { useProducts } from "../context/ProductsContext";
 import TopBar from "./TopBar";
 import "./Header.css";
 
@@ -13,6 +13,7 @@ const Header = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const { cartCount } = useCart();
+  const { products } = useProducts();
   const navigate = useNavigate();
 
   const searchRef = useRef<HTMLDivElement>(null);
@@ -30,7 +31,7 @@ const Header = () => {
           product.category.toLowerCase().includes(query),
       )
       .slice(0, 5);
-  }, [searchQuery]);
+  }, [searchQuery, products]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -55,7 +56,7 @@ const Header = () => {
     }
   }, [isSearchOpen]);
 
-  const handleResultClick = (productId: number) => {
+  const handleResultClick = (productId: string | number) => {
     navigate(`/product/${productId}`);
     setIsSearchOpen(false);
     setSearchQuery("");
@@ -151,7 +152,7 @@ const Header = () => {
                       className="header__search-view-all"
                     
                     >
-                      View all results for "{searchQuery}" →
+                      View all results for "{searchQuery}" â†’
                     </button>
                   )}
                 </div>
@@ -195,3 +196,7 @@ const Header = () => {
 };
 
 export default Header;
+
+
+
+

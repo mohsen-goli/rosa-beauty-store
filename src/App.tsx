@@ -1,7 +1,8 @@
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+﻿import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { CartProvider } from "./context/CartContext";
 import { WishlistProvider } from "./context/WishlistContext";
+import { ProductsProvider } from "./context/ProductsContext";
 import { ToastProvider } from "./components/ToastProvider";
 import PageTransition from "./components/PageTransition";
 import Header from "./components/Header";
@@ -16,8 +17,8 @@ import Checkout from "./pages/Checkout";
 import Success from "./pages/Success";
 import SearchPage from "./pages/SearchPage";
 import WishlistPage from "./pages/WishlistPage";
-import About from "./pages/About"; // 👈 اضافه شد
-import Blog from "./pages/Blog"; // 👈 اضافه شد
+import About from "./pages/About"; // ًں‘ˆ ط§ط¶ط§ظپظ‡ ط´ط¯
+import Blog from "./pages/Blog"; // ًں‘ˆ ط§ط¶ط§ظپظ‡ ط´ط¯
 import NotFound from "./pages/NotFound";
 
 function AnimatedRoutes() {
@@ -107,7 +108,7 @@ function AnimatedRoutes() {
           }
         />
 
-        {/* 👇 این خط باید همیشه آخرین Route باشه */}
+        {/* ًں‘‡ ط§غŒظ† ط®ط· ط¨ط§غŒط¯ ظ‡ظ…غŒط´ظ‡ ط¢ط®ط±غŒظ† Route ط¨ط§ط´ظ‡ */}
         <Route
           path="*"
           element={
@@ -127,11 +128,13 @@ function App() {
       <ToastProvider>
         <CartProvider>
           <WishlistProvider>
+            <ProductsProvider>
             <Header />
             <main>
               <AnimatedRoutes />
             </main>
             <Footer />
+          </ProductsProvider>
           </WishlistProvider>
         </CartProvider>
       </ToastProvider>
@@ -140,3 +143,6 @@ function App() {
 }
 
 export default App;
+
+
+

@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   ArrowLeft,
@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import { useToast } from "../components/ToastProvider";
-import { products } from "../data/products";
+import { useProducts } from "../context/ProductsContext";
 import ProductCard from "../components/ProductCard";
 import "./CartPage.css";
 
@@ -27,6 +27,7 @@ function CartPage() {
     clearCart,
   } = useCart();
   const { showSuccess, showError } = useToast();
+  const { products } = useProducts();
   const navigate = useNavigate();
 
   const [promoCode, setPromoCode] = useState("");
@@ -47,7 +48,7 @@ function CartPage() {
   const discountAmount = (cartTotal * discount) / 100;
   const finalTotal = cartTotal - discountAmount;
 
-  // اگر سبد خرید خالیه
+  // ط§ع¯ط± ط³ط¨ط¯ ط®ط±غŒط¯ ط®ط§ظ„غŒظ‡
   if (cart.length === 0) {
     const suggestedProducts = products ? products.slice(0, 4) : [];
     return (
@@ -156,7 +157,7 @@ function CartPage() {
               </div>
               {appliedCode && (
                 <div className="promo-applied">
-                  <span>✓ {appliedCode} applied</span>
+                  <span>âœ“ {appliedCode} applied</span>
                   <button
                     onClick={() => {
                       setDiscount(0);
@@ -212,3 +213,5 @@ function CartPage() {
 }
 
 export default CartPage;
+
+

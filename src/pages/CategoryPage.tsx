@@ -1,8 +1,8 @@
-
+﻿
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, SlidersHorizontal } from "lucide-react";
-import { getProductsByCategory } from "../data/products";
+import { useProducts } from "../context/ProductsContext";
 import { useCart } from "../context/CartContext";
 import ProductCard from "../components/ProductCard";
 import { ProductGridSkeleton } from "../components/Skeleton";
@@ -11,6 +11,7 @@ import "./CategoryPage.css";
 function CategoryPage() {
   const { category } = useParams();
   const { addToCart } = useCart();
+  const { products: allProducts, loading: productsLoading } = useProducts();
   const [loadingCategory, setLoadingCategory] = useState(category);
   const [sortBy, setSortBy] = useState("default");
 
@@ -22,8 +23,8 @@ function CategoryPage() {
     return () => clearTimeout(timer);
   }, [category]);
 
-  const isLoading = loadingCategory !== category;
-  const products = getProductsByCategory(category);
+  const isLoading = productsLoading || loadingCategory !== category;
+  const products = allProducts.filter((p) => p.category === category);
 
   const sortedProducts = [...products].sort((a, b) => {
     if (sortBy === "price-low") return a.price - b.price;
@@ -98,3 +99,8 @@ function CategoryPage() {
 }
 
 export default CategoryPage;
+
+
+
+
+

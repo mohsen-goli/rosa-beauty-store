@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
@@ -11,19 +11,20 @@ import {
 import { useCart } from "../context/CartContext";
 import ProductCard from "../components/ProductCard";
 import BrandsCarousel from "../components/BrandsCarousel";
-import HeroCarousel from "../components/HeroCarousel"; // 👈 ایمپورت جدید
-import { products } from "../data/products";
+import HeroCarousel from "../components/HeroCarousel"; // ًں‘ˆ ط§غŒظ…ظ¾ظˆط±طھ ط¬ط¯غŒط¯
+import { useProducts } from "../context/ProductsContext";
 import "./Home.css";
 
 function Home() {
   const { addToCart } = useCart();
+  const { products } = useProducts();
   const featuredProducts = products ? products.slice(0, 4) : [];
 
   return (
     <div className="home">
-      {/* --- ۱. بخش هیرو (Full Background) --- */}
+      {/* --- غ±. ط¨ط®ط´ ظ‡غŒط±ظˆ (Full Background) --- */}
       <section className="hero">
-        {/* عکس‌های کراسل به عنوان پس‌زمینه */}
+        {/* ط¹ع©ط³â€Œظ‡ط§غŒ ع©ط±ط§ط³ظ„ ط¨ظ‡ ط¹ظ†ظˆط§ظ† ظ¾ط³â€Œط²ظ…غŒظ†ظ‡ */}
         <HeroCarousel />
 
         <div className="container hero__container">
@@ -54,10 +55,10 @@ function Home() {
         </div>
       </section>
 
-      {/* ۲. کراسل برندها */}
+      {/* غ². ع©ط±ط§ط³ظ„ ط¨ط±ظ†ط¯ظ‡ط§ */}
       <BrandsCarousel />
 
-      {/* ۳. نوار مزیت‌ها */}
+      {/* غ³. ظ†ظˆط§ط± ظ…ط²غŒطھâ€Œظ‡ط§ */}
       <section className="features-bar">
         <div className="container features-bar__container">
           <div className="feature-item">
@@ -91,7 +92,7 @@ function Home() {
         </div>
       </section>
 
-      {/* ۴. دسته‌بندی‌ها */}
+      {/* غ´. ط¯ط³طھظ‡â€Œط¨ظ†ط¯غŒâ€Œظ‡ط§ */}
       <section className="section categories">
         <div className="container">
           <div className="section__header">
@@ -126,7 +127,7 @@ function Home() {
         </div>
       </section>
 
-      {/* ۵. محصولات ویژه */}
+      {/* غµ. ظ…ط­طµظˆظ„ط§طھ ظˆغŒعکظ‡ */}
       <section className="section featured-products">
         <div className="container">
           <div className="section__header">
@@ -151,3 +152,5 @@ function Home() {
 }
 
 export default Home;
+
+
