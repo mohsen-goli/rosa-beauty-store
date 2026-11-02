@@ -1,15 +1,17 @@
 ﻿import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
+
 import { CartProvider } from "./context/CartContext";
 import { WishlistProvider } from "./context/WishlistContext";
 import { ProductsProvider } from "./context/ProductsContext";
+
 import { ToastProvider } from "./components/ToastProvider";
 import PageTransition from "./components/PageTransition";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
-// Pages
 import Home from "./pages/Home";
+import Shop from "./pages/Shop";
 import ProductDetail from "./pages/ProductDetail";
 import CategoryPage from "./pages/CategoryPage";
 import CartPage from "./pages/CartPage";
@@ -17,8 +19,8 @@ import Checkout from "./pages/Checkout";
 import Success from "./pages/Success";
 import SearchPage from "./pages/SearchPage";
 import WishlistPage from "./pages/WishlistPage";
-import About from "./pages/About"; // ًں‘ˆ ط§ط¶ط§ظپظ‡ ط´ط¯
-import Blog from "./pages/Blog"; // ًں‘ˆ ط§ط¶ط§ظپظ‡ ط´ط¯
+import About from "./pages/About";
+import Blog from "./pages/Blog";
 import NotFound from "./pages/NotFound";
 
 function AnimatedRoutes() {
@@ -35,6 +37,16 @@ function AnimatedRoutes() {
             </PageTransition>
           }
         />
+
+        <Route
+          path="/shop"
+          element={
+            <PageTransition>
+              <Shop />
+            </PageTransition>
+          }
+        />
+
         <Route
           path="/product/:id"
           element={
@@ -43,6 +55,7 @@ function AnimatedRoutes() {
             </PageTransition>
           }
         />
+
         <Route
           path="/category/:category"
           element={
@@ -51,6 +64,7 @@ function AnimatedRoutes() {
             </PageTransition>
           }
         />
+
         <Route
           path="/search"
           element={
@@ -59,6 +73,7 @@ function AnimatedRoutes() {
             </PageTransition>
           }
         />
+
         <Route
           path="/cart"
           element={
@@ -67,6 +82,7 @@ function AnimatedRoutes() {
             </PageTransition>
           }
         />
+
         <Route
           path="/wishlist"
           element={
@@ -75,6 +91,7 @@ function AnimatedRoutes() {
             </PageTransition>
           }
         />
+
         <Route
           path="/checkout"
           element={
@@ -83,6 +100,7 @@ function AnimatedRoutes() {
             </PageTransition>
           }
         />
+
         <Route
           path="/success"
           element={
@@ -91,6 +109,7 @@ function AnimatedRoutes() {
             </PageTransition>
           }
         />
+
         <Route
           path="/about"
           element={
@@ -99,6 +118,7 @@ function AnimatedRoutes() {
             </PageTransition>
           }
         />
+
         <Route
           path="/blog"
           element={
@@ -108,7 +128,6 @@ function AnimatedRoutes() {
           }
         />
 
-        {/* ًں‘‡ ط§غŒظ† ط®ط· ط¨ط§غŒط¯ ظ‡ظ…غŒط´ظ‡ ط¢ط®ط±غŒظ† Route ط¨ط§ط´ظ‡ */}
         <Route
           path="*"
           element={
@@ -129,12 +148,14 @@ function App() {
         <CartProvider>
           <WishlistProvider>
             <ProductsProvider>
-            <Header />
-            <main>
-              <AnimatedRoutes />
-            </main>
-            <Footer />
-          </ProductsProvider>
+              <Header />
+
+              <main>
+                <AnimatedRoutes />
+              </main>
+
+              <Footer />
+            </ProductsProvider>
           </WishlistProvider>
         </CartProvider>
       </ToastProvider>
@@ -143,6 +164,3 @@ function App() {
 }
 
 export default App;
-
-
-
