@@ -1,19 +1,21 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { CheckCircle } from "lucide-react";
 
 function Success() {
+  const { t } = useTranslation();
+
   return (
     <div className="success-page">
       <CheckCircle size={80} strokeWidth={1.2} color="#E8A0A8" />
 
-      <h1>Thank you for your order! 🌹</h1>
-      <p>Your order has been placed successfully.</p>
-      <p className="muted">
-        We'll send you an email confirmation shortly with tracking details.
-      </p>
+      <h1>{t("successPage.title")}</h1>
+      <p>{t("successPage.description")}</p>
+
+      <p className="muted">{t("successPage.note")}</p>
 
       <Link to="/" className="btn-primary">
-        Continue Shopping
+        {t("successPage.continue")}
       </Link>
     </div>
   );

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { ArrowLeft, SlidersHorizontal, ShoppingBag } from "lucide-react";
 
 import { useProducts } from "../context/ProductsContext";
@@ -10,6 +11,8 @@ import { ProductGridSkeleton } from "../components/Skeleton";
 import "./Shop.css";
 
 function Shop() {
+  const { t } = useTranslation();
+
   const { products, loading, error } = useProducts();
   const { addToCart } = useCart();
 
@@ -28,15 +31,17 @@ function Shop() {
       <div className="container">
         <Link to="/" className="back-link">
           <ArrowLeft size={18} />
-          Back to Home
+          {t("shopPage.backHome")}
         </Link>
 
         <div className="shop-header">
           <div>
-            <p className="shop-header__subtitle">OUR COLLECTION</p>
-            <h1 className="shop-header__title">All Products</h1>
+            <p className="shop-header__subtitle">{t("shopPage.subtitle")}</p>
+
+            <h1 className="shop-header__title">{t("shopPage.title")}</h1>
+
             <p className="shop-header__count">
-              {products.length} products available
+              {t("shopPage.productCount", { count: products.length })}
             </p>
           </div>
 
@@ -47,11 +52,15 @@ function Shop() {
               value={sortBy}
               onChange={(event) => setSortBy(event.target.value)}
               className="shop-sort__select"
+              aria-label={t("shopPage.defaultSort")}
             >
-              <option value="default">Default Sorting</option>
-              <option value="price-low">Price: Low to High</option>
-              <option value="price-high">Price: High to Low</option>
-              <option value="name">Name: A to Z</option>
+              <option value="default">{t("shopPage.defaultSort")}</option>
+
+              <option value="price-low">{t("shopPage.priceLow")}</option>
+
+              <option value="price-high">{t("shopPage.priceHigh")}</option>
+
+              <option value="name">{t("shopPage.nameSort")}</option>
             </select>
           </div>
         </div>
@@ -60,17 +69,19 @@ function Shop() {
           <ProductGridSkeleton count={8} />
         ) : error ? (
           <div className="shop-empty">
-            <h2>Unable to load products</h2>
+            <h2>{t("shopPage.loadError")}</h2>
             <p>{error}</p>
           </div>
         ) : sortedProducts.length === 0 ? (
           <div className="shop-empty">
             <ShoppingBag size={48} />
-            <h2>No products available</h2>
-            <p>Our collection is currently empty.</p>
+
+            <h2>{t("shopPage.emptyTitle")}</h2>
+
+            <p>{t("shopPage.emptyDescription")}</p>
 
             <Link to="/" className="btn btn--primary">
-              Back to Home
+              {t("shopPage.backHome")}
             </Link>
           </div>
         ) : (

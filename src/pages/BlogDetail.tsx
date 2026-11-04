@@ -1,13 +1,15 @@
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, Clock, BookOpen } from "lucide-react";
-import { blogPosts } from "../data/blogPosts";
+import { useTranslation } from "react-i18next";
+import { getBlogPost } from "../data/blogPosts";
 import NotFound from "./NotFound";
 import "./BlogDetail.css";
 
 function BlogDetail() {
   const { slug } = useParams();
+  const { t, i18n } = useTranslation();
 
-  const post = blogPosts.find((item) => item.slug === slug);
+  const post = getBlogPost(slug || "", i18n.language);
 
   if (!post) {
     return <NotFound />;
@@ -18,7 +20,7 @@ function BlogDetail() {
       <div className="container">
         <Link to="/blog" className="blog-detail__back">
           <ArrowLeft size={18} />
-          Back to Journal
+          {t("blogPage.backToJournal")}
         </Link>
 
         <header className="blog-detail__header">
@@ -36,7 +38,7 @@ function BlogDetail() {
 
             <span>
               <BookOpen size={16} />
-              ROSA Journal
+              {t("blogPage.journalName")}
             </span>
           </div>
         </header>
@@ -73,7 +75,7 @@ function BlogDetail() {
             ))}
 
             <div className="blog-detail__cta">
-              <p>Ready to explore your beauty essentials?</p>
+              <p>{t("blogPage.articleCta")}</p>
 
               <Link
                 to={`/category/${post.relatedCategory}`}
@@ -86,14 +88,13 @@ function BlogDetail() {
 
           <aside className="blog-detail__sidebar">
             <div className="blog-detail__sidebar-card">
-              <span>THE ROSA JOURNAL</span>
-              <h3>Beauty begins with understanding your needs.</h3>
-              <p>
-                Explore simple guides and discover products that fit your
-                personal routine.
-              </p>
+              <span>{t("blogPage.eyebrow")}</span>
 
-              <Link to="/shop">Explore All Products</Link>
+              <h3>{t("blogPage.sidebarTitle")}</h3>
+
+              <p>{t("blogPage.sidebarDescription")}</p>
+
+              <Link to="/shop">{t("blogPage.exploreAllProducts")}</Link>
             </div>
           </aside>
         </div>
@@ -101,7 +102,7 @@ function BlogDetail() {
         <div className="blog-detail__footer">
           <Link to="/blog">
             <ArrowLeft size={16} />
-            Back to all articles
+            {t("blogPage.backToArticles")}
           </Link>
         </div>
       </div>

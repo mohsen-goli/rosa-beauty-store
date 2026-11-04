@@ -1,7 +1,7 @@
-
 import { useState, type ChangeEvent, type FormEvent } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { ArrowLeft, CreditCard, Lock, ShieldCheck } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { ArrowLeft, Lock, ShieldCheck } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import "./Checkout.css";
 
@@ -13,18 +13,15 @@ interface CheckoutFormData {
   address: string;
   city: string;
   postalCode: string;
-  cardNumber: string;
-  expiry: string;
-  cvv: string;
 }
 
 type CheckoutField = keyof CheckoutFormData;
-
 type CheckoutErrors = Partial<Record<CheckoutField, string>>;
 
 function Checkout() {
   const { cart, cartTotal, clearCart } = useCart();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -36,23 +33,19 @@ function Checkout() {
     address: "",
     city: "",
     postalCode: "",
-    cardNumber: "",
-    expiry: "",
-    cvv: "",
   });
 
   const [errors, setErrors] = useState<CheckoutErrors>({});
 
-  // اگر سبد خرید خالی باشد
   if (cart.length === 0) {
     return (
       <div className="checkout-page">
         <div className="container">
           <div className="empty-cart">
-            <h2>Your cart is empty</h2>
-            <p>Add some products before checking out.</p>
+            <h2>{t("checkoutPage.emptyTitle")}</h2>
+            <p>{t("checkoutPage.emptyDescription")}</p>
             <Link to="/" className="btn btn--primary">
-              Start Shopping
+              {t("checkoutPage.startShopping")}
             </Link>
           </div>
         </div>
@@ -81,43 +74,31 @@ function Checkout() {
     const newErrors: CheckoutErrors = {};
 
     if (!formData.firstName.trim()) {
-      newErrors.firstName = "Required";
+      newErrors.firstName = t("common.required");
     }
 
     if (!formData.lastName.trim()) {
-      newErrors.lastName = "Required";
+      newErrors.lastName = t("common.required");
     }
 
-    if (!formData.email.includes("@")) {
-      newErrors.email = "Invalid email";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = t("common.invalidEmail");
     }
 
-    if (formData.phone.length < 10) {
-      newErrors.phone = "Invalid phone";
+    if (formData.phone.replace(/\D/g, "").length < 10) {
+      newErrors.phone = t("common.invalidPhone");
     }
 
     if (!formData.address.trim()) {
-      newErrors.address = "Required";
+      newErrors.address = t("common.required");
     }
 
     if (!formData.city.trim()) {
-      newErrors.city = "Required";
+      newErrors.city = t("common.required");
     }
 
-    if (formData.postalCode.length < 5) {
-      newErrors.postalCode = "Invalid";
-    }
-
-    if (formData.cardNumber.replace(/\s/g, "").length < 16) {
-      newErrors.cardNumber = "Invalid card";
-    }
-
-    if (!formData.expiry.trim()) {
-      newErrors.expiry = "Required";
-    }
-
-    if (formData.cvv.length < 3) {
-      newErrors.cvv = "Invalid CVV";
+    if (formData.postalCode.trim().length < 5) {
+      newErrors.postalCode = t("common.invalid");
     }
 
     return newErrors;
@@ -135,31 +116,32 @@ function Checkout() {
 
     setIsSubmitting(true);
 
-    setTimeout(() => {
+    window.setTimeout(() => {
       clearCart();
       navigate("/success");
-    }, 1500);
+    }, 1000);
   };
 
   return (
     <div className="checkout-page">
       <div className="container">
         <Link to="/cart" className="back-link">
-          <ArrowLeft size={18} /> Back to Cart
+          <ArrowLeft size={18} />
+          {t("checkoutPage.backCart")}
         </Link>
 
-        <h1 className="checkout-title">Checkout</h1>
+        <h1 className="checkout-title">{t("checkoutPage.title")}</h1>
 
         <div className="checkout-layout">
-          {/* فرم سفارش */}
           <form className="checkout-form" onSubmit={handleSubmit}>
-            {/* اطلاعات تماس */}
             <div className="form-section">
-              <h3 className="form-section__title">Contact Information</h3>
+              <h3 className="form-section__title">
+                {t("checkoutPage.contact")}
+              </h3>
 
               <div className="form-grid">
                 <div className="form-field">
-                  <label>First Name</label>
+                  <label>{t("checkoutPage.firstName")}</label>
                   <input
                     type="text"
                     name="firstName"
@@ -173,7 +155,7 @@ function Checkout() {
                 </div>
 
                 <div className="form-field">
-                  <label>Last Name</label>
+                  <label>{t("checkoutPage.lastName")}</label>
                   <input
                     type="text"
                     name="lastName"
@@ -187,7 +169,7 @@ function Checkout() {
                 </div>
 
                 <div className="form-field">
-                  <label>Email</label>
+                  <label>{t("checkoutPage.email")}</label>
                   <input
                     type="email"
                     name="email"
@@ -201,7 +183,7 @@ function Checkout() {
                 </div>
 
                 <div className="form-field">
-                  <label>Phone</label>
+                  <label>{t("checkoutPage.phone")}</label>
                   <input
                     type="tel"
                     name="phone"
@@ -216,13 +198,14 @@ function Checkout() {
               </div>
             </div>
 
-            {/* آدرس ارسال */}
             <div className="form-section">
-              <h3 className="form-section__title">Shipping Address</h3>
+              <h3 className="form-section__title">
+                {t("checkoutPage.shippingAddress")}
+              </h3>
 
               <div className="form-grid">
                 <div className="form-field form-field--full">
-                  <label>Address</label>
+                  <label>{t("checkoutPage.address")}</label>
                   <input
                     type="text"
                     name="address"
@@ -236,7 +219,7 @@ function Checkout() {
                 </div>
 
                 <div className="form-field">
-                  <label>City</label>
+                  <label>{t("checkoutPage.city")}</label>
                   <input
                     type="text"
                     name="city"
@@ -250,7 +233,7 @@ function Checkout() {
                 </div>
 
                 <div className="form-field">
-                  <label>Postal Code</label>
+                  <label>{t("checkoutPage.postalCode")}</label>
                   <input
                     type="text"
                     name="postalCode"
@@ -265,75 +248,29 @@ function Checkout() {
               </div>
             </div>
 
-            {/* اطلاعات پرداخت نمایشی */}
             <div className="form-section">
               <h3 className="form-section__title">
-                <CreditCard size={20} /> Payment Details
+                {t("checkoutPage.payment")}
               </h3>
 
-              <div className="form-grid">
-                <div className="form-field form-field--full">
-                  <label>Card Number</label>
-                  <input
-                    type="text"
-                    name="cardNumber"
-                    placeholder="1234 5678 9012 3456"
-                    value={formData.cardNumber}
-                    onChange={handleChange}
-                    className={errors.cardNumber ? "error" : ""}
-                  />
-                  {errors.cardNumber && (
-                    <span className="error-text">{errors.cardNumber}</span>
-                  )}
-                </div>
-
-                <div className="form-field">
-                  <label>Expiry Date</label>
-                  <input
-                    type="text"
-                    name="expiry"
-                    placeholder="MM/YY"
-                    value={formData.expiry}
-                    onChange={handleChange}
-                    className={errors.expiry ? "error" : ""}
-                  />
-                  {errors.expiry && (
-                    <span className="error-text">{errors.expiry}</span>
-                  )}
-                </div>
-
-                <div className="form-field">
-                  <label>CVV</label>
-                  <input
-                    type="text"
-                    name="cvv"
-                    placeholder="123"
-                    value={formData.cvv}
-                    onChange={handleChange}
-                    className={errors.cvv ? "error" : ""}
-                  />
-                  {errors.cvv && (
-                    <span className="error-text">{errors.cvv}</span>
-                  )}
-                </div>
-              </div>
+              <p>{t("checkoutPage.demoNotice")}</p>
+              <p>{t("checkoutPage.paymentUnavailable")}</p>
             </div>
 
             <button
-  type="submit"
-  className="btn btn--primary checkout-submit"
-  disabled={isSubmitting}
->
-  {isSubmitting
-    ? "Processing..."
-    : `Place Order - $${cartTotal.toFixed(2)}`}
-  <Lock size={18} />
-</button>
+              type="submit"
+              className="btn btn--primary checkout-submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting
+                ? t("checkoutPage.processing")
+                : `${t("checkoutPage.placeOrder")} - $${cartTotal.toFixed(2)}`}
+              <Lock size={18} />
+            </button>
           </form>
 
-          {/* خلاصه سفارش */}
           <div className="checkout-summary">
-            <h3>Order Summary</h3>
+            <h3>{t("checkoutPage.summary")}</h3>
 
             <div className="summary-items">
               {cart.map((item) => (
@@ -345,9 +282,7 @@ function Checkout() {
 
                   <div className="summary-item__info">
                     <p>{item.name}</p>
-                    <span>
-                      ${(item.price * item.quantity).toFixed(2)}
-                    </span>
+                    <span>${(item.price * item.quantity).toFixed(2)}</span>
                   </div>
                 </div>
               ))}
@@ -356,25 +291,25 @@ function Checkout() {
             <div className="summary-divider" />
 
             <div className="summary-row">
-              <span>Subtotal</span>
+              <span>{t("checkoutPage.subtotal")}</span>
               <span>${cartTotal.toFixed(2)}</span>
             </div>
 
             <div className="summary-row">
-              <span>Shipping</span>
-              <span className="free">Free</span>
+              <span>{t("checkoutPage.shipping")}</span>
+              <span className="free">{t("checkoutPage.free")}</span>
             </div>
 
             <div className="summary-divider" />
 
             <div className="summary-row summary-total">
-              <span>Total</span>
+              <span>{t("checkoutPage.total")}</span>
               <span>${cartTotal.toFixed(2)}</span>
             </div>
 
             <div className="summary-trust">
               <ShieldCheck size={16} />
-              <span>Secure 256-bit SSL encrypted payment</span>
+              <span>{t("checkoutPage.secureNotice")}</span>
             </div>
           </div>
         </div>

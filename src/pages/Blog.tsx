@@ -1,19 +1,22 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Clock } from "lucide-react";
-import { blogPosts } from "../data/blogPosts";
+import { useTranslation } from "react-i18next";
+import { getBlogPosts } from "../data/blogPosts";
 import "./Blog.css";
 
 function Blog() {
+  const { t, i18n } = useTranslation();
+  const blogPosts = getBlogPosts(i18n.language);
+
   return (
     <main className="blog-page">
       <section className="blog-hero">
         <div className="container">
-          <span className="blog-hero__eyebrow">THE ROSA JOURNAL</span>
-          <h1>Beauty, Made Simple.</h1>
-          <p>
-            Discover practical beauty tips, skincare knowledge, and everyday
-            inspiration to help you build a routine that feels right for you.
-          </p>
+          <span className="blog-hero__eyebrow">{t("blogPage.eyebrow")}</span>
+
+          <h1>{t("blogPage.title")}</h1>
+
+          <p>{t("blogPage.description")}</p>
         </div>
       </section>
 
@@ -22,12 +25,16 @@ function Blog() {
           <div className="blog-section-heading">
             <div>
               <span className="blog-section-heading__eyebrow">
-                READ & DISCOVER
+                {t("blogPage.sectionEyebrow")}
               </span>
-              <h2>Latest Articles</h2>
+
+              <h2>{t("blogPage.latestArticles")}</h2>
             </div>
+
             <span className="blog-section-heading__count">
-              {blogPosts.length} ARTICLES
+              {t("blogPage.articleCount", {
+                count: blogPosts.length,
+              })}
             </span>
           </div>
 
@@ -37,7 +44,7 @@ function Blog() {
                 <Link
                   to={`/blog/${post.slug}`}
                   className="blog-card__image-link"
-                  aria-label={`Read ${post.title}`}
+                  aria-label={`${t("blogPage.readArticle")}: ${post.title}`}
                 >
                   <img
                     className="blog-card__image"
@@ -50,6 +57,7 @@ function Blog() {
                 <div className="blog-card__body">
                   <div className="blog-card__meta">
                     <span className="blog-card__category">{post.category}</span>
+
                     <span className="blog-card__read-time">
                       <Clock size={14} />
                       {post.readTime}
@@ -66,7 +74,7 @@ function Blog() {
                     to={`/blog/${post.slug}`}
                     className="blog-card__read-more"
                   >
-                    Read Article
+                    {t("blogPage.readArticle")}
                     <ArrowRight size={17} />
                   </Link>
                 </div>
@@ -75,10 +83,12 @@ function Blog() {
           </div>
 
           <div className="blog-bottom-cta">
-            <span>YOUR BEAUTY JOURNEY STARTS HERE</span>
-            <h2>Find the essentials that fit your routine.</h2>
+            <span>{t("blogPage.ctaEyebrow")}</span>
+
+            <h2>{t("blogPage.ctaTitle")}</h2>
+
             <Link to="/shop" className="blog-bottom-cta__button">
-              Explore the Shop
+              {t("blogPage.exploreShop")}
               <ArrowRight size={17} />
             </Link>
           </div>

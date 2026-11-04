@@ -1,6 +1,6 @@
-﻿
-import { useState, useEffect, useRef, useMemo, type FormEvent } from "react";
+﻿import { useState, useEffect, useRef, useMemo, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Search, User, ShoppingBag, Menu, X } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import { useProducts } from "../context/ProductsContext";
@@ -12,6 +12,7 @@ const Header = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
+  const { t, i18n } = useTranslation();
   const { cartCount } = useCart();
   const { products } = useProducts();
   const navigate = useNavigate();
@@ -74,6 +75,10 @@ const Header = () => {
     }
   };
 
+  const handleLanguageChange = (language: string) => {
+    i18n.changeLanguage(language);
+  };
+
   return (
     <>
       <TopBar />
@@ -85,15 +90,38 @@ const Header = () => {
           </Link>
 
           <nav className="header__nav">
-            <Link to="/" className="header__link">Home</Link>
-            <Link to="/shop" className="header__link">Shop</Link>
-            <Link to="/category/skincare" className="header__link">Skincare</Link>
-            <Link to="/category/makeup" className="header__link">Makeup</Link>
-            <Link to="/about" className="header__link">About Us</Link>
-            <Link to="/blog" className="header__link">Blog</Link>
+            <Link to="/" className="header__link">
+              {t("home")}
+            </Link>
+            <Link to="/shop" className="header__link">
+              {t("shop")}
+            </Link>
+            <Link to="/category/skincare" className="header__link">
+              {t("skincare")}
+            </Link>
+            <Link to="/category/makeup" className="header__link">
+              {t("makeup")}
+            </Link>
+            <Link to="/about" className="header__link">
+              {t("about")}
+            </Link>
+            <Link to="/blog" className="header__link">
+              {t("blog")}
+            </Link>
           </nav>
 
           <div className="header__actions">
+            <select
+              className="header__language-select"
+              value={i18n.resolvedLanguage || i18n.language}
+              onChange={(event) => handleLanguageChange(event.target.value)}
+              aria-label="Select language"
+            >
+              <option value="en">EN</option>
+              <option value="fa">FA</option>
+              <option value="ar">AR</option>
+            </select>
+
             <div className="header__search-wrapper" ref={searchRef}>
               {isSearchOpen ? (
                 <form onSubmit={handleSubmit} className="header__search-inline">
@@ -102,7 +130,7 @@ const Header = () => {
                   <input
                     ref={inputRef}
                     type="text"
-                    placeholder="Search..."
+                    placeholder={t("search")}
                     value={searchQuery}
                     onChange={(event) => setSearchQuery(event.target.value)}
                     className="header__search-inline-input"
@@ -111,7 +139,7 @@ const Header = () => {
                   <button
                     type="button"
                     className="header__search-inline-close"
-                    aria-label="Close search"
+                    aria-label={t("closeSearch")}
                     onClick={() => {
                       setIsSearchOpen(false);
                       setSearchQuery("");
@@ -123,7 +151,7 @@ const Header = () => {
               ) : (
                 <button
                   className="header__icon-btn"
-                  aria-label="Search"
+                  aria-label={t("search")}
                   onClick={() => setIsSearchOpen(true)}
                 >
                   <Search size={20} />
@@ -150,16 +178,24 @@ const Header = () => {
                     <button
                       type="button"
                       className="header__search-view-all"
-                    
+                      onClick={() => {
+                        const query = searchQuery.trim();
+
+                        if (query) {
+                          navigate(`/search?q=${encodeURIComponent(query)}`);
+                          setIsSearchOpen(false);
+                          setSearchQuery("");
+                        }
+                      }}
                     >
-                      View all results for "{searchQuery}" â†’
+                      {t("viewAllResults", { query: searchQuery })} →
                     </button>
                   )}
                 </div>
               )}
             </div>
 
-            <button className="header__icon-btn" aria-label="Profile">
+            <button className="header__icon-btn" aria-label={t("profile")}>
               <User size={20} />
             </button>
 
@@ -172,7 +208,7 @@ const Header = () => {
 
             <button
               className="header__icon-btn header__menu-toggle"
-              aria-label="Toggle menu"
+              aria-label={t("toggleMenu")}
               onClick={() => setIsMenuOpen((previous) => !previous)}
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -182,12 +218,24 @@ const Header = () => {
 
         {isMenuOpen && (
           <div className="header__mobile-menu">
-            <Link to="/" className="header__mobile-link">Home</Link>
-            <Link to="/shop" className="header__mobile-link">Shop</Link>
-            <Link to="/category/skincare" className="header__mobile-link">Skincare</Link>
-            <Link to="/category/makeup" className="header__mobile-link">Makeup</Link>
-            <Link to="/about" className="header__mobile-link">About Us</Link>
-            <Link to="/blog" className="header__mobile-link">Blog</Link>
+            <Link to="/" className="header__mobile-link">
+              {t("home")}
+            </Link>
+            <Link to="/shop" className="header__mobile-link">
+              {t("shop")}
+            </Link>
+            <Link to="/category/skincare" className="header__mobile-link">
+              {t("skincare")}
+            </Link>
+            <Link to="/category/makeup" className="header__mobile-link">
+              {t("makeup")}
+            </Link>
+            <Link to="/about" className="header__mobile-link">
+              {t("about")}
+            </Link>
+            <Link to="/blog" className="header__mobile-link">
+              {t("blog")}
+            </Link>
           </div>
         )}
       </header>
@@ -196,7 +244,3 @@ const Header = () => {
 };
 
 export default Header;
-
-
-
-

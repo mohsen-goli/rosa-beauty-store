@@ -348,3 +348,25 @@
     right: -40px;
   }
 }
+
+.header__language-select {
+  background: var(--color-bg-secondary);
+  color: var(--color-text-main);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 7px 8px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+}
+
+.header__language-select:focus {
+  border-color: var(--color-primary);
+}
+
+.header__language-select option {
+  background: var(--color-bg-primary);
+  color: var(--color-text-main);
+}

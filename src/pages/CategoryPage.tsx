@@ -1,6 +1,6 @@
-﻿
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { ArrowLeft, SlidersHorizontal } from "lucide-react";
 import { useProducts } from "../context/ProductsContext";
 import { useCart } from "../context/CartContext";
@@ -12,19 +12,24 @@ function CategoryPage() {
   const { category } = useParams();
   const { addToCart } = useCart();
   const { products: allProducts, loading: productsLoading } = useProducts();
+  const { t } = useTranslation();
+
   const [loadingCategory, setLoadingCategory] = useState(category);
   const [sortBy, setSortBy] = useState("default");
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const timer = window.setTimeout(() => {
       setLoadingCategory(category);
     }, 700);
 
-    return () => clearTimeout(timer);
+    return () => window.clearTimeout(timer);
   }, [category]);
 
   const isLoading = productsLoading || loadingCategory !== category;
-  const products = allProducts.filter((p) => p.category === category);
+
+  const products = allProducts.filter(
+    (product) => product.category === category,
+  );
 
   const sortedProducts = [...products].sort((a, b) => {
     if (sortBy === "price-low") return a.price - b.price;
@@ -34,41 +39,54 @@ function CategoryPage() {
   });
 
   const titles: Record<string, string> = {
-    skincare: "Skincare",
-    makeup: "Makeup",
-    "body-care": "Body Care",
-    fragrance: "Fragrance",
+    skincare: t("homeCategories.skincare"),
+    makeup: t("homeCategories.makeup"),
+    "body-care": t("homeCategories.bodycare"),
+    fragrance: t("homeCategories.fragrance"),
   };
 
-  const title = category ? titles[category] || category : "Category";
+  const title = category
+    ? titles[category] || category
+    : t("categoryPage.subtitle");
 
   return (
     <div className="category-page">
       <div className="container">
         <Link to="/" className="back-link">
-          <ArrowLeft size={18} /> Back to Home
+          <ArrowLeft size={18} />
+          {t("categoryPage.backHome")}
         </Link>
 
         <div className="category-header">
           <div>
-            <p className="category-header__subtitle">CATEGORY</p>
+            <p className="category-header__subtitle">
+              {t("categoryPage.subtitle")}
+            </p>
+
             <h1 className="category-header__title">{title}</h1>
+
             <p className="category-header__count">
-              {sortedProducts.length} products
+              {t("categoryPage.count", {
+                count: sortedProducts.length,
+              })}
             </p>
           </div>
 
           <div className="category-sort">
             <SlidersHorizontal size={16} />
+
             <select
               value={sortBy}
               onChange={(event) => setSortBy(event.target.value)}
               className="category-sort__select"
             >
-              <option value="default">Default Sorting</option>
-              <option value="price-low">Price: Low to High</option>
-              <option value="price-high">Price: High to Low</option>
-              <option value="rating">Highest Rated</option>
+              <option value="default">{t("categoryPage.defaultSort")}</option>
+
+              <option value="price-low">{t("categoryPage.priceLow")}</option>
+
+              <option value="price-high">{t("categoryPage.priceHigh")}</option>
+
+              <option value="rating">{t("categoryPage.rating")}</option>
             </select>
           </div>
         </div>
@@ -77,9 +95,10 @@ function CategoryPage() {
           <ProductGridSkeleton count={4} />
         ) : sortedProducts.length === 0 ? (
           <div className="not-found">
-            <p>No products found in this category.</p>
+            <p>{t("categoryPage.empty")}</p>
+
             <Link to="/" className="btn btn--primary">
-              Back to Home
+              {t("categoryPage.backHome")}
             </Link>
           </div>
         ) : (
@@ -99,8 +118,3 @@ function CategoryPage() {
 }
 
 export default CategoryPage;
-
-
-
-
-

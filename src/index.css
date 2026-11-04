@@ -84,3 +84,59 @@ img {
   margin: 0 auto !important;
   padding: 0 var(--spacing-lg) !important;
 }
+
+/* Default font */
+body {
+  font-family: "Inter", sans-serif;
+}
+
+/* Persian */
+html[lang="fa"] body {
+  font-family: "Vazirmatn", sans-serif;
+}
+
+/* Arabic */
+html[lang="ar"] body {
+  font-family: "Tajawal", sans-serif;
+}
+
+/* Apply font to form controls too */
+html[lang="fa"] button,
+html[lang="fa"] input,
+html[lang="fa"] textarea,
+html[lang="fa"] select {
+  font-family: "Vazirmatn", sans-serif;
+}
+
+html[lang="ar"] button,
+html[lang="ar"] input,
+html[lang="ar"] textarea,
+html[lang="ar"] select {
+  font-family: "Tajawal", sans-serif;
+}
+/* English */
+html[lang="en"] body,
+html[lang="en"] button,
+html[lang="en"] input,
+html[lang="en"] textarea,
+html[lang="en"] select {
+  font-family: "Inter", sans-serif;
+}
+
+/* Persian */
+html[lang="fa"] body,
+html[lang="fa"] button,
+html[lang="fa"] input,
+html[lang="fa"] textarea,
+html[lang="fa"] select {
+  font-family: "Vazirmatn", sans-serif;
+}
+
+/* Arabic */
+html[lang="ar"] body,
+html[lang="ar"] button,
+html[lang="ar"] input,
+html[lang="ar"] textarea,
+html[lang="ar"] select {
+  font-family: "Tajawal", sans-serif;
+}

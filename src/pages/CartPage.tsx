@@ -1,5 +1,6 @@
 ﻿import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import {
   ArrowLeft,
   Trash2,
@@ -26,9 +27,11 @@ function CartPage() {
     cartTotal,
     clearCart,
   } = useCart();
+
   const { showSuccess, showError } = useToast();
   const { products } = useProducts();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const [promoCode, setPromoCode] = useState("");
   const [discount, setDiscount] = useState(0);
@@ -38,35 +41,37 @@ function CartPage() {
     if (promoCode.trim().toUpperCase() === "GLOW20") {
       setDiscount(20);
       setAppliedCode("GLOW20");
-      showSuccess("Promo code applied! 20% off.");
+      showSuccess(t("cartPage.promoSuccess"));
     } else {
-      showError("Invalid promo code.");
+      showError(t("cartPage.promoError"));
     }
+
     setPromoCode("");
   };
 
   const discountAmount = (cartTotal * discount) / 100;
   const finalTotal = cartTotal - discountAmount;
 
-  // ط§ع¯ط± ط³ط¨ط¯ ط®ط±غŒط¯ ط®ط§ظ„غŒظ‡
   if (cart.length === 0) {
     const suggestedProducts = products ? products.slice(0, 4) : [];
+
     return (
       <div className="cart-page">
         <div className="container">
           <div className="empty-cart">
             <ShoppingBag size={64} strokeWidth={1} />
-            <h2>Your cart is empty</h2>
-            <p>Looks like you haven't added anything to your cart yet.</p>
+            <h2>{t("cartPage.emptyTitle")}</h2>
+            <p>{t("cartPage.emptyDescription")}</p>
             <Link to="/" className="btn btn--primary">
-              Start Shopping
+              {t("common.startShopping")}
             </Link>
           </div>
 
           <section className="section suggested-products">
             <div className="section__header">
-              <h2 className="section__title">You Might Also Like</h2>
+              <h2 className="section__title">{t("cartPage.suggested")}</h2>
             </div>
+
             <div className="products-grid">
               {suggestedProducts.map((product) => (
                 <ProductCard
@@ -86,13 +91,16 @@ function CartPage() {
     <div className="cart-page">
       <div className="container">
         <Link to="/" className="back-link">
-          <ArrowLeft size={18} /> Continue Shopping
+          <ArrowLeft size={18} />
+          {t("cartPage.continue")}
         </Link>
 
         <div className="cart-page__header">
-          <h1 className="cart-page__title">Your Cart</h1>
+          <h1 className="cart-page__title">{t("cartPage.title")}</h1>
+
           <button className="clear-cart" onClick={clearCart}>
-            <Trash2 size={16} /> Clear Cart
+            <Trash2 size={16} />
+            {t("cartPage.clear")}
           </button>
         </div>
 
@@ -103,34 +111,41 @@ function CartPage() {
                 <Link to={`/product/${item.id}`} className="cart-item__image">
                   <img src={item.image} alt={item.name} />
                 </Link>
+
                 <div className="cart-item__info">
                   <Link to={`/product/${item.id}`} className="cart-item__name">
                     {item.name}
                   </Link>
+
                   <p className="cart-item__price">${item.price}</p>
                 </div>
+
                 <div className="cart-item__quantity">
                   <button
                     onClick={() => decreaseCart(item.id)}
-                    aria-label="Decrease"
+                    aria-label={t("cartPage.decrease")}
                   >
                     <Minus size={14} />
                   </button>
+
                   <span>{item.quantity}</span>
+
                   <button
                     onClick={() => increaseCart(item.id)}
-                    aria-label="Increase"
+                    aria-label={t("cartPage.increase")}
                   >
                     <Plus size={14} />
                   </button>
                 </div>
+
                 <p className="cart-item__total">
                   ${(item.price * item.quantity).toFixed(2)}
                 </p>
+
                 <button
                   className="cart-item__remove"
                   onClick={() => removeFromCart(item.id)}
-                  aria-label="Remove"
+                  aria-label={t("cartPage.remove")}
                 >
                   <Trash2 size={18} />
                 </button>
@@ -139,70 +154,84 @@ function CartPage() {
           </div>
 
           <div className="cart-summary">
-            <h3 className="cart-summary__title">Order Summary</h3>
+            <h3 className="cart-summary__title">{t("cartPage.summary")}</h3>
 
             <div className="promo-code-section">
               <div className="promo-input-group">
                 <Tag size={16} className="promo-icon" />
+
                 <input
                   type="text"
-                  placeholder="Promo code"
+                  placeholder={t("cartPage.promoPlaceholder")}
                   value={promoCode}
                   onChange={(e) => setPromoCode(e.target.value)}
                   className="promo-input"
                 />
+
                 <button className="promo-btn" onClick={handleApplyPromo}>
-                  Apply
+                  {t("common.apply")}
                 </button>
               </div>
+
               {appliedCode && (
                 <div className="promo-applied">
-                  <span>âœ“ {appliedCode} applied</span>
+                  <span>
+                    ✓ {t("cartPage.promoApplied", { code: appliedCode })}
+                  </span>
+
                   <button
                     onClick={() => {
                       setDiscount(0);
                       setAppliedCode("");
                     }}
                   >
-                    Remove
+                    {t("common.remove")}
                   </button>
                 </div>
               )}
             </div>
 
             <div className="cart-summary__row">
-              <span>Subtotal</span>
+              <span>{t("cartPage.subtotal")}</span>
               <span>${cartTotal.toFixed(2)}</span>
             </div>
+
             {discount > 0 && (
               <div className="cart-summary__row discount-row">
-                <span>Discount ({discount}%)</span>
+                <span>{t("cartPage.discount", { percent: discount })}</span>
                 <span>-${discountAmount.toFixed(2)}</span>
               </div>
             )}
+
             <div className="cart-summary__row">
-              <span>Shipping</span>
-              <span className="free">Free</span>
+              <span>{t("cartPage.shipping")}</span>
+              <span className="free">{t("common.free")}</span>
             </div>
+
             <div className="cart-summary__divider" />
+
             <div className="cart-summary__row cart-summary__total">
-              <span>Total</span>
+              <span>{t("cartPage.total")}</span>
               <span>${finalTotal.toFixed(2)}</span>
             </div>
+
             <button
               className="btn btn--primary cart-summary__checkout"
               onClick={() => navigate("/checkout")}
             >
-              Checkout <ShieldCheck size={18} />
+              {t("cartPage.checkout")}
+              <ShieldCheck size={18} />
             </button>
+
             <div className="cart-summary__trust">
               <div className="trust-item">
                 <Truck size={16} />
-                <span>Free Shipping</span>
+                <span>{t("cartPage.freeShipping")}</span>
               </div>
+
               <div className="trust-item">
                 <ShieldCheck size={16} />
-                <span>Secure Checkout</span>
+                <span>{t("cartPage.secureCheckout")}</span>
               </div>
             </div>
           </div>
@@ -213,5 +242,3 @@ function CartPage() {
 }
 
 export default CartPage;
-
-

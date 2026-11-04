@@ -1,69 +1,76 @@
-import React from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Mail, Phone, MapPin } from "lucide-react";
 import "./Footer.css";
 
-const Footer = () => {
+function Footer() {
+  const { t } = useTranslation();
+
   return (
     <footer className="footer">
       <div className="container footer__container">
-        {/* ستون ۱: برند */}
         <div className="footer__col">
           <h3 className="footer__logo">ROSA</h3>
-          <p className="footer__desc">
-            Timeless beauty for your everyday glow.
-          </p>
+          <p className="footer__desc">{t("footer.description")}</p>
         </div>
 
-        {/* ستون ۲: لینک‌های سریع */}
         <div className="footer__col">
-          <h4 className="footer__title">Shop</h4>
-          <Link to="/shop" className="footer__link">
-            Skincare
+          <h4 className="footer__title">{t("footer.shop")}</h4>
+
+          <Link to="/category/skincare" className="footer__link">
+            {t("footer.skincare")}
           </Link>
-          <Link to="/shop" className="footer__link">
-            Makeup
+
+          <Link to="/category/makeup" className="footer__link">
+            {t("footer.makeup")}
           </Link>
-          <Link to="/shop" className="footer__link">
-            Body Care
+
+          <Link to="/category/body-care" className="footer__link">
+            {t("footer.bodyCare")}
           </Link>
         </div>
 
-        {/* ستون ۳: شرکت */}
         <div className="footer__col">
-          <h4 className="footer__title">Company</h4>
+          <h4 className="footer__title">{t("footer.company")}</h4>
+
           <Link to="/about" className="footer__link">
-            About
+            {t("footer.about")}
           </Link>
+
           <Link to="/contact" className="footer__link">
-            Contact
+            {t("footer.contact")}
           </Link>
         </div>
 
-        {/* ستون ۴: تماس */}
         <div className="footer__col">
-          <h4 className="footer__title">Contact</h4>
+          <h4 className="footer__title">{t("footer.contact")}</h4>
+
           <div className="footer__contact-item">
             <Mail size={16} />
             <span>hello@rosa.com</span>
           </div>
+
           <div className="footer__contact-item">
             <Phone size={16} />
             <span>+98 21 1234 5678</span>
           </div>
+
           <div className="footer__contact-item">
             <MapPin size={16} />
-            <span>Tehran, Iran</span>
+            <span>{t("footer.location")}</span>
           </div>
         </div>
       </div>
 
-      {/* کپی رایت */}
       <div className="footer__bottom">
-        <p>© 2026 ROSA. All rights reserved.</p>
+        <p>
+          {t("footer.copyright", {
+            year: new Date().getFullYear(),
+          })}
+        </p>
       </div>
     </footer>
   );
-};
+}
 
 export default Footer;
