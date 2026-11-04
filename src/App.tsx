@@ -22,7 +22,7 @@ import WishlistPage from "./pages/WishlistPage";
 import About from "./pages/About";
 import Blog from "./pages/Blog";
 import NotFound from "./pages/NotFound";
-
+import BlogDetail from "./pages/BlogDetail";
 function AnimatedRoutes() {
   const location = useLocation();
 
@@ -127,7 +127,14 @@ function AnimatedRoutes() {
             </PageTransition>
           }
         />
-
+        <Route
+          path="/blog/:slug"
+          element={
+            <PageTransition>
+              <BlogDetail />
+            </PageTransition>
+          }
+        />
         <Route
           path="*"
           element={
