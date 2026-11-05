@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ArrowLeft, Lock, ShieldCheck } from "lucide-react";
 import { useCart } from "../context/CartContext";
+import { supabase } from "../lib/supabase";
 import "./Checkout.css";
 
 interface CheckoutFormData {
@@ -18,12 +19,19 @@ interface CheckoutFormData {
 type CheckoutField = keyof CheckoutFormData;
 type CheckoutErrors = Partial<Record<CheckoutField, string>>;
 
+interface CreatedOrder {
+  order_id: string;
+  order_number: number | string;
+  total: number | string;
+}
+
 function Checkout() {
   const { cart, cartTotal, clearCart } = useCart();
   const navigate = useNavigate();
   const { t } = useTranslation();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const [formData, setFormData] = useState<CheckoutFormData>({
     firstName: "",
@@ -36,22 +44,6 @@ function Checkout() {
   });
 
   const [errors, setErrors] = useState<CheckoutErrors>({});
-
-  if (cart.length === 0) {
-    return (
-      <div className="checkout-page">
-        <div className="container">
-          <div className="empty-cart">
-            <h2>{t("checkoutPage.emptyTitle")}</h2>
-            <p>{t("checkoutPage.emptyDescription")}</p>
-            <Link to="/" className="btn btn--primary">
-              {t("checkoutPage.startShopping")}
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
@@ -68,6 +60,10 @@ function Checkout() {
         [fieldName]: "",
       }));
     }
+
+    if (submitError) {
+      setSubmitError("");
+    }
   };
 
   const validate = (): CheckoutErrors => {
@@ -81,7 +77,7 @@ function Checkout() {
       newErrors.lastName = t("common.required");
     }
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
       newErrors.email = t("common.invalidEmail");
     }
 
@@ -104,7 +100,7 @@ function Checkout() {
     return newErrors;
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
 
     const newErrors = validate();
@@ -114,13 +110,72 @@ function Checkout() {
       return;
     }
 
-    setIsSubmitting(true);
+    if (cart.length === 0) return;
 
-    window.setTimeout(() => {
+    setIsSubmitting(true);
+    setSubmitError("");
+
+    try {
+      const { data, error } = await supabase.rpc("create_customer_order", {
+        p_customer_name: `${formData.firstName.trim()} ${formData.lastName.trim()}`,
+        p_customer_email: formData.email.trim(),
+        p_customer_phone: formData.phone.trim(),
+        p_shipping_address: `${formData.address.trim()}, ${formData.city.trim()}, ${formData.postalCode.trim()}`,
+        p_items: cart.map((item) => ({
+          product_id: String(item.id),
+          quantity: item.quantity,
+        })),
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      const createdOrder = (
+        Array.isArray(data) ? data[0] : data
+      ) as CreatedOrder | null;
+
+      if (!createdOrder || createdOrder.order_number == null) {
+        throw new Error("The order response was incomplete.");
+      }
+
+      const orderTotal = Number(createdOrder.total);
+
+      if (!Number.isFinite(orderTotal)) {
+        throw new Error("The order total was invalid.");
+      }
+
       clearCart();
-      navigate("/success");
-    }, 1000);
+
+      navigate("/success", {
+        state: {
+          orderNumber: String(createdOrder.order_number),
+          total: orderTotal,
+        },
+      });
+    } catch (error) {
+      console.error("Order submission failed:", error);
+      setSubmitError(t("checkoutPage.orderError"));
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
+  if (cart.length === 0) {
+    return (
+      <div className="checkout-page">
+        <div className="container">
+          <div className="empty-cart">
+            <h2>{t("checkoutPage.emptyTitle")}</h2>
+            <p>{t("checkoutPage.emptyDescription")}</p>
+            <Link to="/" className="btn btn--primary">
+              {t("checkoutPage.startShopping")}
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="checkout-page">
@@ -256,6 +311,12 @@ function Checkout() {
               <p>{t("checkoutPage.demoNotice")}</p>
               <p>{t("checkoutPage.paymentUnavailable")}</p>
             </div>
+
+            {submitError && (
+              <p className="error-text" role="alert">
+                {submitError}
+              </p>
+            )}
 
             <button
               type="submit"
