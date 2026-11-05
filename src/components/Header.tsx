@@ -85,8 +85,8 @@ const Header = () => {
 
       <header className="header">
         <div className="header__container">
-          <Link to="/" className="header__logo">
-            ROSA
+          <Link to="/" className="header__logo" aria-label="ROSA Beauty Store">
+            <img src="/Images/rosa-logo.png" alt="ROSA Beauty Store" />
           </Link>
 
           <nav className="header__nav">

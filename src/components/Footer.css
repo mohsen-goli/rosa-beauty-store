@@ -16,13 +16,18 @@
   grid-template-columns: 2fr 1fr 1fr 1fr;
   gap: var(--spacing-xl);
 }
-
 .footer__logo {
-  font-family: var(--font-serif);
-  font-size: 28px;
-  letter-spacing: 1px;
+  display: inline-flex;
+  align-items: center;
   margin-bottom: var(--spacing-sm);
-  color: var(--color-white);
+}
+
+.footer__logo img {
+  display: block;
+  width: 150px;
+  height: 100px;
+  object-fit: contain;
+  border-radius: 8px;
 }
 
 .footer__desc {

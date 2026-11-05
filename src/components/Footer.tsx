@@ -10,7 +10,9 @@ function Footer() {
     <footer className="footer">
       <div className="container footer__container">
         <div className="footer__col">
-          <h3 className="footer__logo">ROSA</h3>
+          <Link to="/" className="footer__logo" aria-label="ROSA Beauty Store">
+            <img src="/Images/rosa-logo.png" alt="ROSA Beauty Store" />
+          </Link>
           <p className="footer__desc">{t("footer.description")}</p>
         </div>
 

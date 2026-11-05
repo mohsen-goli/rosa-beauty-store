@@ -21,13 +21,17 @@
 }
 
 .header__logo {
-  font-family: var(--font-serif);
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--color-text-main);
-  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
 }
 
+.header__logo img {
+  display: block;
+  width: 120px;
+  height: 80px;
+  object-fit: contain;
+}
 .header__nav {
   display: flex;
   gap: var(--spacing-lg);
