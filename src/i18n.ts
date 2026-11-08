@@ -1,10 +1,6 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-i18n.on("languageChanged", (language) => {
-  const lang = language.split("-")[0];
-  document.documentElement.lang = lang;
-  document.documentElement.dir = lang === "en" ? "ltr" : "rtl";
-});
+
 const resources = {
   en: {
     translation: {
@@ -93,6 +89,8 @@ const resources = {
           "Discover carefully selected beauty essentials designed to make you feel confident, radiant, and beautiful every day.",
         shopNow: "Shop Now",
         ourStory: "Our Story",
+        storyEyebrow: "OUR STORY",
+        storyTitle: "Beauty, Your Way",
         features: {
           quality: "Premium Quality",
           qualityDescription: "Carefully selected beauty products.",
@@ -102,6 +100,15 @@ const resources = {
           secureDescription: "A simple and secure shopping experience.",
           support: "Customer Support",
           supportDescription: "We're here to help you.",
+          selectionTitle: "Curated Beauty",
+          selectionDescription:
+            "Discover beauty essentials selected with care.",
+          personalTitle: "Personal Care",
+          personalDescription: "Find products that fit your everyday routine.",
+          inspirationTitle: "Beauty Inspiration",
+          inspirationDescription: "Explore new ideas for your beauty journey.",
+          guidesTitle: "Beauty Guides",
+          guidesDescription: "Learn simple tips for your skincare routine.",
         },
         categoriesTitle: "Shop By Category",
         categoriesSubtitle: "Find your beauty essentials",
@@ -233,9 +240,11 @@ const resources = {
         address: "Address",
         city: "City",
         postalCode: "Postal Code",
-        demoNotice: "Your order will be recorded, but no online payment will be collected.",
+        demoNotice:
+          "Your order will be recorded, but no online payment will be collected.",
         payment: "Payment",
-        paymentUnavailable: "Online payment is not available yet. Your order will be saved as unpaid.",
+        paymentUnavailable:
+          "Online payment is not available yet. Your order will be saved as unpaid.",
         placeOrder: "Place Order",
         processing: "Processing...",
         summary: "Order Summary",
@@ -243,8 +252,10 @@ const resources = {
         shipping: "Shipping",
         total: "Total",
         free: "Free",
-        orderError: "We couldn't place your order. Please check product availability and try again.",
-        secureNotice: "Your order is recorded securely. Payment is not processed online.",
+        orderError:
+          "We couldn't place your order. Please check product availability and try again.",
+        secureNotice:
+          "Your order is recorded securely. Payment is not processed online.",
       },
 
       successPage: {
@@ -356,12 +367,13 @@ const resources = {
         title: "الهام‌گرفته از طبیعت، با نگاهی به علم",
         description:
           "در ROSA باور داریم زیبایی با مراقبت از پوست آغاز می‌شود. محصولات زیبایی منتخب را کشف کنید و روتینی متناسب با نیازها و سلیقه خود بسازید.",
-        missionTitle: "ماموریت ما",
-        missionFirst:
-          "می‌خواهیم کشف و انتخاب محصولات زیبایی را ساده، لذت‌بخش و در دسترس کنیم.",
-        missionSecond:
-          "تمرکز ما کمک به شما برای پیدا کردن محصولاتی متناسب با سلیقه و روتین روزانه شماست.",
-        valuesTitle: "ارزش‌های ما",
+        missionTitle: "زیبایی، فراتر از یک انتخاب",
+
+        missionParagraph1:
+          "در ROSA باور داریم زیبایی چیزی فراتر از استفاده از محصولات آرایشی و مراقبتی است؛ زیبایی راهی برای شناخت خود، توجه به نیازها و بیان سبک منحصربه‌فرد هر فرد است. هر انتخاب کوچک در روتین مراقبت از پوست و زیبایی می‌تواند بخشی از تجربه شخصی و دوست‌داشتنی شما باشد.",
+
+        missionParagraph2:
+          "ما در ROSA تلاش می‌کنیم مجموعه‌ای از محصولات زیبایی و مراقبتی را در فضایی ساده، دلنشین و قابل اعتماد گرد هم بیاوریم؛ تا پیدا کردن محصول مناسب، تجربه‌ای لذت‌بخش و آگاهانه باشد. هدف ما این است که شما با آرامش انتخاب کنید، از مراقبت از خود لذت ببرید و زیبایی را به سبک خودتان تجربه کنید.",
         naturalTitle: "انتخاب آگاهانه",
         naturalDescription:
           "محصولاتی را برای روتین زیبایی خود با دقت بررسی و انتخاب کنید.",
@@ -386,6 +398,8 @@ const resources = {
           "محصولات منتخب زیبایی را کشف کنید که به شما کمک می‌کنند هر روز با اعتمادبه‌نفس و درخشش بیشتری بدرخشید.",
         shopNow: "خرید کنید",
         ourStory: "داستان ما",
+        storyEyebrow: "OUR STORY",
+        storyTitle: "زیبایی به سبک خودتان",
         features: {
           quality: "کیفیت برتر",
           qualityDescription: "محصولات زیبایی با دقت انتخاب‌شده.",
@@ -395,6 +409,14 @@ const resources = {
           secureDescription: "تجربه خریدی ساده و مطمئن.",
           support: "پشتیبانی مشتریان",
           supportDescription: "ما همیشه برای کمک به شما آماده‌ایم.",
+          selectionTitle: "انتخاب محصولات برتر",
+          selectionDescription: "محصولات زیبایی منتخب با دقت برای شما.",
+          personalTitle: "مراقبت شخصی",
+          personalDescription: "محصولاتی متناسب با روتین روزانه خود پیدا کنید.",
+          inspirationTitle: "الهام زیبایی",
+          inspirationDescription: "ایده‌های تازه برای زیبایی خود کشف کنید.",
+          guidesTitle: "راهنمای زیبایی",
+          guidesDescription: "نکات کاربردی برای مراقبت از پوست بیاموزید.",
         },
         categoriesTitle: "خرید بر اساس دسته‌بندی",
         categoriesSubtitle: "محصولات زیبایی مورد نیازتان را پیدا کنید",
@@ -525,9 +547,11 @@ const resources = {
         address: "آدرس",
         city: "شهر",
         postalCode: "کد پستی",
-        demoNotice: "سفارش شما ثبت می‌شود، اما در این مرحله پرداخت آنلاین انجام نمی‌شود.",
+        demoNotice:
+          "سفارش شما ثبت می‌شود، اما در این مرحله پرداخت آنلاین انجام نمی‌شود.",
         payment: "پرداخت",
-        paymentUnavailable: "درگاه پرداخت آنلاین هنوز فعال نیست. سفارش شما با وضعیت پرداخت‌نشده ثبت خواهد شد.",
+        paymentUnavailable:
+          "درگاه پرداخت آنلاین هنوز فعال نیست. سفارش شما با وضعیت پرداخت‌نشده ثبت خواهد شد.",
         placeOrder: "ثبت سفارش",
         processing: "در حال پردازش...",
         summary: "خلاصه سفارش",
@@ -535,8 +559,10 @@ const resources = {
         shipping: "هزینه ارسال",
         total: "مبلغ نهایی",
         free: "رایگان",
-        orderError: "ثبت سفارش انجام نشد. موجودی محصولات را بررسی کنید و دوباره تلاش کنید.",
-        secureNotice: "سفارش شما با امنیت در سیستم ثبت می‌شود. پرداخت آنلاین انجام نمی‌شود.",
+        orderError:
+          "ثبت سفارش انجام نشد. موجودی محصولات را بررسی کنید و دوباره تلاش کنید.",
+        secureNotice:
+          "سفارش شما با امنیت در سیستم ثبت می‌شود. پرداخت آنلاین انجام نمی‌شود.",
       },
 
       successPage: {
@@ -685,6 +711,14 @@ const resources = {
           secureDescription: "تجربة تسوق سهلة وآمنة.",
           support: "دعم العملاء",
           supportDescription: "نحن هنا لمساعدتك.",
+          selectionTitle: "اختيارات جمالية مميزة",
+          selectionDescription: "اكتشفي منتجات جمال مختارة بعناية.",
+          personalTitle: "العناية الشخصية",
+          personalDescription: "اختاري منتجات تناسب روتينك اليومي.",
+          inspirationTitle: "إلهام جمالي",
+          inspirationDescription: "اكتشفي أفكارًا جديدة لجمالك.",
+          guidesTitle: "أدلة الجمال",
+          guidesDescription: "تعلمي نصائح بسيطة للعناية ببشرتك.",
         },
         categoriesTitle: "تسوقي حسب الفئة",
         categoriesSubtitle: "اكتشفي منتجات الجمال التي تحتاجينها",
@@ -816,7 +850,8 @@ const resources = {
         postalCode: "الرمز البريدي",
         demoNotice: "سيتم تسجيل طلبك، ولكن لن يتم تحصيل أي دفعة عبر الإنترنت.",
         payment: "الدفع",
-        paymentUnavailable: "الدفع عبر الإنترنت غير متاح حاليًا. سيتم تسجيل طلبك كغير مدفوع.",
+        paymentUnavailable:
+          "الدفع عبر الإنترنت غير متاح حاليًا. سيتم تسجيل طلبك كغير مدفوع.",
         placeOrder: "تأكيد الطلب",
         processing: "جارٍ المعالجة...",
         summary: "ملخص الطلب",
@@ -825,7 +860,8 @@ const resources = {
         total: "الإجمالي",
         free: "مجاني",
         orderError: "تعذر تسجيل طلبك. تحقق من توفر المنتجات وحاول مرة أخرى.",
-        secureNotice: "سيتم تسجيل طلبك بأمان. لم تتم معالجة أي دفعة عبر الإنترنت.",
+        secureNotice:
+          "سيتم تسجيل طلبك بأمان. لم تتم معالجة أي دفعة عبر الإنترنت.",
       },
 
       successPage: {
@@ -878,10 +914,19 @@ const resources = {
     },
   },
 };
+
+const savedLanguage = localStorage.getItem("rosa-language");
+
+const initialLanguage =
+  savedLanguage && ["fa", "en", "ar"].includes(savedLanguage)
+    ? savedLanguage
+    : "fa";
+
 i18n.use(initReactI18next).init({
   resources,
-  lng: localStorage.getItem("rosa-language") || "en",
-  fallbackLng: "en",
+  lng: initialLanguage,
+  fallbackLng: "fa",
+  supportedLngs: ["fa", "en", "ar"],
   interpolation: {
     escapeValue: false,
   },
@@ -898,6 +943,6 @@ const updateDocumentLanguage = (language: string) => {
 
 i18n.on("languageChanged", updateDocumentLanguage);
 
-updateDocumentLanguage(i18n.resolvedLanguage || i18n.language || "en");
+updateDocumentLanguage(initialLanguage);
 
 export default i18n;

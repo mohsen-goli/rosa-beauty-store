@@ -22,25 +22,21 @@ import "./Home.css";
 const categories = [
   {
     titleKey: "homeCategories.skincare",
-    descriptionKey: "homeCategories.skincareDescription",
     image: "/Images/categories/Skincare.jpg",
     slug: "skincare",
   },
   {
     titleKey: "homeCategories.makeup",
-    descriptionKey: "homeCategories.makeupDescription",
     image: "/Images/categories/makeup.jpg",
     slug: "makeup",
   },
   {
-    titleKey: "homeCategories.bodyCare",
-    descriptionKey: "homeCategories.bodyCareDescription",
+    titleKey: "homeCategories.bodycare",
     image: "/Images/categories/Body-Care.jpg",
     slug: "body-care",
   },
   {
     titleKey: "homeCategories.fragrance",
-    descriptionKey: "homeCategories.fragranceDescription",
     image: "/Images/categories/fragrance.jpg",
     slug: "fragrance",
   },
@@ -135,19 +131,17 @@ function Home() {
         <div className="container">
           <div className="section__header">
             <div>
-              <span className="section__eyebrow">
-                {t("homePage.categoriesEyebrow")}
-              </span>
               <h2 className="section__title">
                 {t("homePage.categoriesTitle")}
               </h2>
+
               <p className="section__description">
-                {t("homePage.categoriesDescription")}
+                {t("homePage.categoriesSubtitle")}
               </p>
             </div>
 
             <Link to="/shop" className="view-all">
-              {t("homePage.allProducts")} <ArrowRight size={14} />
+              {t("homePage.viewAll")} <ArrowRight size={14} />
             </Link>
           </div>
 
@@ -159,7 +153,10 @@ function Home() {
                 initial={{ opacity: 0, y: 25 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.45, delay: index * 0.08 }}
+                transition={{
+                  duration: 0.45,
+                  delay: index * 0.08,
+                }}
               >
                 <Link
                   to={`/category/${category.slug}`}
@@ -167,6 +164,7 @@ function Home() {
                 >
                   <div className="home-category__image">
                     <img src={category.image} alt={t(category.titleKey)} />
+
                     <span className="home-category__arrow">
                       <ArrowUpRight size={20} />
                     </span>
@@ -174,7 +172,6 @@ function Home() {
 
                   <div className="home-category__info">
                     <h3>{t(category.titleKey)}</h3>
-                    <p>{t(category.descriptionKey)}</p>
                   </div>
                 </Link>
               </motion.div>
@@ -188,12 +185,10 @@ function Home() {
         <div className="container">
           <div className="section__header">
             <div>
-              <span className="section__eyebrow">
-                {t("homePage.featuredEyebrow")}
-              </span>
               <h2 className="section__title">{t("homePage.featuredTitle")}</h2>
+
               <p className="section__description">
-                {t("homePage.featuredDescription")}
+                {t("homePage.featuredSubtitle")}
               </p>
             </div>
 
@@ -203,12 +198,10 @@ function Home() {
           </div>
 
           {loading ? (
-            <div className="home-products-message">
-              {t("homePage.loadingProducts")}
-            </div>
+            <div className="home-products-message">{t("homePage.loading")}</div>
           ) : error ? (
             <div className="home-products-message">
-              {t("homePage.productsError")}
+              {t("homePage.loadError")}
             </div>
           ) : featuredProducts.length > 0 ? (
             <div className="products-grid">
@@ -222,7 +215,7 @@ function Home() {
             </div>
           ) : (
             <div className="home-products-message">
-              {t("homePage.noProducts")}
+              {t("common.noProducts")}
             </div>
           )}
         </div>
@@ -231,34 +224,45 @@ function Home() {
       {/* Brand story */}
       <section className="home-story">
         <div className="container home-story__container">
-          <div className="home-story__visual">
+          <motion.div
+            className="home-story__visual"
+            initial={{ opacity: 0, x: -25 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
             <img
-              src="/Images/categories/Skincare.jpg"
-              alt={t("homePage.storyImageAlt")}
+              src="/Images/about/rosa-home-story.jpg"
+              alt={t("homePage.storyTitle")}
+              loading="lazy"
             />
+
             <div className="home-story__visual-note">
               <Sparkles size={18} />
-              <span>{t("homePage.storyNote")}</span>
+              <span>ROSA BEAUTY</span>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="home-story__content">
+          <motion.div
+            className="home-story__content"
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.15 }}
+          >
             <span className="section__eyebrow">
               {t("homePage.storyEyebrow")}
             </span>
 
-            <h2>
-              {t("homePage.storyTitle")}
-              <span> {t("homePage.storyHighlight")}</span>
-            </h2>
+            <h2>{t("homePage.storyTitle")}</h2>
 
-            <p>{t("homePage.storyParagraphOne")}</p>
-            <p>{t("homePage.storyParagraphTwo")}</p>
+            <p>{t("homePage.brandDescription")}</p>
 
             <Link to="/about" className="story-link">
-              {t("homePage.getToKnow")} <ArrowRight size={16} />
+              {t("homePage.brandButton")}
+              <ArrowRight size={16} />
             </Link>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -266,10 +270,10 @@ function Home() {
       <section className="section routine-section">
         <div className="container">
           <div className="routine-section__heading">
-            <span className="section__eyebrow">
-              {t("homePage.routineEyebrow")}
-            </span>
+            <span className="section__eyebrow">ROSA BEAUTY</span>
+
             <h2 className="section__title">{t("homePage.routineTitle")}</h2>
+
             <p className="section__description">
               {t("homePage.routineDescription")}
             </p>
@@ -278,32 +282,45 @@ function Home() {
           <div className="routine-grid">
             <Link to="/category/skincare" className="routine-card">
               <span className="routine-card__number">01</span>
+
               <div>
                 <Leaf size={25} />
-                <h3>{t("homePage.routineSkinTitle")}</h3>
-                <p>{t("homePage.routineSkinDescription")}</p>
+                <h3>{t("homeCategories.skincare")}</h3>
+                <p>{t("homePage.routineDescription")}</p>
               </div>
+
               <ArrowUpRight size={20} className="routine-card__arrow" />
             </Link>
 
             <Link to="/category/makeup" className="routine-card">
               <span className="routine-card__number">02</span>
+
               <div>
                 <Sparkles size={25} />
-                <h3>{t("homePage.routineMakeupTitle")}</h3>
-                <p>{t("homePage.routineMakeupDescription")}</p>
+                <h3>{t("homeCategories.makeup")}</h3>
+                <p>{t("homePage.routineDescription")}</p>
               </div>
+
               <ArrowUpRight size={20} className="routine-card__arrow" />
             </Link>
 
             <Link to="/category/body-care" className="routine-card">
               <span className="routine-card__number">03</span>
+
               <div>
                 <Heart size={25} />
-                <h3>{t("homePage.routineBodyTitle")}</h3>
-                <p>{t("homePage.routineBodyDescription")}</p>
+                <h3>{t("homeCategories.bodycare")}</h3>
+                <p>{t("homePage.routineDescription")}</p>
               </div>
+
               <ArrowUpRight size={20} className="routine-card__arrow" />
+            </Link>
+          </div>
+
+          <div className="routine-section__action">
+            <Link to="/shop" className="btn btn--primary">
+              {t("homePage.routineButton")}
+              <ArrowRight size={16} />
             </Link>
           </div>
         </div>
@@ -313,21 +330,22 @@ function Home() {
       <section className="home-journal">
         <div className="container home-journal__container">
           <div className="home-journal__content">
-            <span className="section__eyebrow">
-              {t("homePage.journalEyebrow")}
-            </span>
+            <span className="section__eyebrow">ROSA JOURNAL</span>
+
             <h2>{t("homePage.journalTitle")}</h2>
+
             <p>{t("homePage.journalDescription")}</p>
 
             <Link to="/blog" className="btn btn--primary">
-              {t("homePage.exploreJournal")} <ArrowRight size={16} />
+              {t("homePage.journalButton")}
+              <ArrowRight size={16} />
             </Link>
           </div>
 
           <div className="home-journal__image">
             <img
               src="/Images/categories/Body-Care.jpg"
-              alt={t("homePage.journalImageAlt")}
+              alt={t("homePage.journalTitle")}
             />
           </div>
         </div>

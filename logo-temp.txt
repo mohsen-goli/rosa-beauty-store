@@ -1,0 +1,13 @@
+.header__logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.header__logo img {
+  display: block;
+  width: 120px;
+  height: 80px;
+  object-fit: contain;
+  object-position: center;
+}

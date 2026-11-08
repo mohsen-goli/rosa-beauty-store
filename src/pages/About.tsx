@@ -27,8 +27,8 @@ function About() {
         <div className="about-story">
           <div className="about-story__image">
             <img
-              src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=800&auto=format&fit=crop"
-              alt="ROSA beauty and skincare"
+              src="/Images/about/rosa-about-ritual.jpg"
+              alt="ROSA skincare ritual"
               loading="lazy"
             />
           </div>
