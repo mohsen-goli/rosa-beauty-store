@@ -100,3 +100,29 @@
     transform: translateX(50%);
   }
 }
+/* Mobile Hero Improvements */
+@media (max-width: 600px) {
+  .hero-carousel-bg {
+    height: 100%;
+  }
+
+  .hero-carousel-bg__slide {
+    background-size: cover !important;
+    background-position: center center !important;
+  }
+
+  .hero-carousel-bg__overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(253, 251, 247, 0.2) 0%,
+      rgba(253, 251, 247, 0.45) 45%,
+      rgba(253, 251, 247, 0.75) 100%
+    );
+  }
+
+  .hero-carousel-bg__dots {
+    bottom: 12px;
+    right: 50%;
+    transform: translateX(50%);
+  }
+}
