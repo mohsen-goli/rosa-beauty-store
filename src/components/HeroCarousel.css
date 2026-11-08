@@ -126,3 +126,14 @@
     transform: translateX(50%);
   }
 }
+/* Mobile hero overlay adjustment */
+@media (max-width: 600px) {
+  .hero-carousel-bg__overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(253, 251, 247, 0.05) 0%,
+      rgba(253, 251, 247, 0.15) 55%,
+      rgba(253, 251, 247, 0.35) 100%
+    );
+  }
+}

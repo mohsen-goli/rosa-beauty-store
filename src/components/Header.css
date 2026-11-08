@@ -374,3 +374,49 @@
   background: var(--color-bg-primary);
   color: var(--color-text-main);
 }
+/* Mobile header layout fix */
+@media (max-width: 600px) {
+  .header {
+    padding: 8px 0;
+  }
+
+  .header__container {
+    padding: 0 12px !important;
+    gap: 8px;
+    justify-content: space-between;
+  }
+
+  .header__logo img {
+    width: 88px;
+    height: 58px;
+  }
+
+  .header__actions {
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .header__language-select {
+    padding: 5px 4px;
+    font-size: 10px;
+  }
+
+  .header__actions > button.header__icon-btn:not(.header__menu-toggle) {
+    display: none;
+  }
+
+  .header__icon-btn {
+    padding: 4px;
+    min-width: 30px;
+    min-height: 34px;
+    flex-shrink: 0;
+  }
+
+  .header__menu-toggle {
+    display: flex;
+  }
+
+  .header__search-wrapper {
+    flex-shrink: 0;
+  }
+}
