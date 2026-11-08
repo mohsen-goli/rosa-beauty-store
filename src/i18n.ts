@@ -4,6 +4,12 @@ import { initReactI18next } from "react-i18next";
 const resources = {
   en: {
     translation: {
+      topBar: {
+        shipping: "Free Shipping on orders over $49",
+        offer: "Exclusive Offers | 20% OFF your first order - Code: GLOW20",
+        authentic: "100% Authentic Products",
+      },
+
       home: "Home",
       shop: "Shop",
       skincare: "Skincare",
@@ -312,6 +318,12 @@ const resources = {
 
   fa: {
     translation: {
+      topBar: {
+        shipping: "ارسال رایگان سفارش‌های بالای ۴۹ دلار",
+        offer: "۲۰٪ تخفیف اولین خرید شما | کد تخفیف: GLOW20",
+        authentic: "۱۰۰٪ محصولات اصل و اورجینال",
+      },
+
       home: "خانه",
       shop: "فروشگاه",
       skincare: "مراقبت پوست",
@@ -619,6 +631,12 @@ const resources = {
 
   ar: {
     translation: {
+      topBar: {
+        shipping: "شحن مجاني للطلبات التي تزيد عن 49 دولارًا",
+        offer: "خصم 20٪ على طلبك الأول | رمز الخصم: GLOW20",
+        authentic: "منتجات أصلية 100٪",
+      },
+
       home: "الرئيسية",
       shop: "المتجر",
       skincare: "العناية بالبشرة",

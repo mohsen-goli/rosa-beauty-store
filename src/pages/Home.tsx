@@ -344,7 +344,7 @@ function Home() {
 
           <div className="home-journal__image">
             <img
-              src="/Images/categories/Body-Care.jpg"
+              src="/Images/journal/rosa-journal-editorial.jpg"
               alt={t("homePage.journalTitle")}
             />
           </div>

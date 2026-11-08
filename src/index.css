@@ -1,5 +1,20 @@
-/* src/index.css */
+/* =========================================
+   ROSA BEAUTY - GLOBAL STYLES
+========================================= */
+
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap");
+
+@font-face {
+  font-family: "IranSans";
+  src: url("/fonts/iransans/iransans.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+/* =========================================
+   DESIGN TOKENS
+========================================= */
 
 :root {
   --color-bg-primary: #fdfbf7;
@@ -13,6 +28,8 @@
 
   --font-serif: "Playfair Display", serif;
   --font-sans: "Inter", sans-serif;
+  --font-persian: "IranSans", sans-serif;
+  --font-arabic: "Tajawal", sans-serif;
 
   --spacing-xs: 4px;
   --spacing-sm: 8px;
@@ -26,6 +43,10 @@
   --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
+/* =========================================
+   RESET
+========================================= */
+
 * {
   margin: 0;
   padding: 0;
@@ -34,14 +55,14 @@
 
 html,
 body {
-  width: 100% !important;
-  max-width: 100vw !important;
-  overflow-x: hidden !important; /* 👈 جلوگیری از اسکرول افقی */
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 #root {
-  width: 100% !important;
-  overflow-x: hidden !important;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -50,6 +71,10 @@ body {
   color: var(--color-text-main);
   line-height: 1.6;
 }
+
+/* =========================================
+   TYPOGRAPHY
+========================================= */
 
 h1,
 h2,
@@ -65,78 +90,80 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
 button {
   cursor: pointer;
   border: none;
   background: none;
-  font-family: var(--font-sans);
 }
+
 img {
   max-width: 100%;
   height: auto;
   display: block;
 }
 
-/* کانتینر اصلی */
+/* =========================================
+   LAYOUT
+========================================= */
+
 .container {
-  width: 100% !important;
-  max-width: 1200px !important;
-  margin: 0 auto !important;
-  padding: 0 var(--spacing-lg) !important;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
 }
 
-/* Default font */
-body {
-  font-family: "Inter", sans-serif;
-}
+/* =========================================
+   PERSIAN - IRANSANS
+========================================= */
 
-/* Persian */
-html[lang="fa"] body {
-  font-family: "Vazirmatn", sans-serif;
-}
-
-/* Arabic */
-html[lang="ar"] body {
-  font-family: "Tajawal", sans-serif;
-}
-
-/* Apply font to form controls too */
+html[lang="fa"] body,
+html[lang="fa"] body *,
 html[lang="fa"] button,
 html[lang="fa"] input,
 html[lang="fa"] textarea,
 html[lang="fa"] select {
-  font-family: "Vazirmatn", sans-serif;
+  font-family: var(--font-persian);
 }
 
+/* =========================================
+   ARABIC - TAJAWAL
+========================================= */
+
+html[lang="ar"] body,
+html[lang="ar"] body *,
 html[lang="ar"] button,
 html[lang="ar"] input,
 html[lang="ar"] textarea,
 html[lang="ar"] select {
-  font-family: "Tajawal", sans-serif;
+  font-family: var(--font-arabic);
 }
-/* English */
+
+/* =========================================
+   ENGLISH - INTER + PLAYFAIR
+========================================= */
+
 html[lang="en"] body,
 html[lang="en"] button,
 html[lang="en"] input,
 html[lang="en"] textarea,
 html[lang="en"] select {
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-sans);
 }
 
-/* Persian */
-html[lang="fa"] body,
-html[lang="fa"] button,
-html[lang="fa"] input,
-html[lang="fa"] textarea,
-html[lang="fa"] select {
-  font-family: "Vazirmatn", sans-serif;
-}
-
-/* Arabic */
-html[lang="ar"] body,
-html[lang="ar"] button,
-html[lang="ar"] input,
-html[lang="ar"] textarea,
-html[lang="ar"] select {
-  font-family: "Tajawal", sans-serif;
+html[lang="en"] h1,
+html[lang="en"] h2,
+html[lang="en"] h3,
+html[lang="en"] h4,
+html[lang="en"] h5,
+html[lang="en"] h6 {
+  font-family: var(--font-serif);
 }

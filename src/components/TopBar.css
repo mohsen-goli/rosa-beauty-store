@@ -1,36 +1,158 @@
-/* src/components/TopBar.css */
+
 .top-bar {
-  background-color: var(--color-primary);
-  color: var(--color-white);
-  font-size: 12px;
-  padding: var(--spacing-sm) 0;
   width: 100%;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  background: linear-gradient(105deg, #74172c 0%, #8f2038 48%, #74172c 100%);
+  color: #ffffff;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+  overflow: hidden;
 }
 
 .top-bar__container {
-  width: 100% !important;
-  max-width: 1200px !important;
-  margin: 0 auto !important;
-  padding: 0 var(--spacing-lg) !important;
+  width: 100%;
+  max-width: 1200px;
+  min-height: 26px;
+  margin: 0 auto;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
-.top-bar__item {
+.top-bar__message {
   display: flex;
   align-items: center;
-  gap: var(--spacing-xs);
-  font-weight: 400;
+  justify-content: center;
+  gap: 11px;
+  text-align: center;
+  animation: rosa-promo-in 0.55s ease both;
+}
+
+.top-bar__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  opacity: 0.95;
+}
+
+.top-bar__text {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.top-bar__indicators {
+  position: absolute;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.top-bar__indicator {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transition: all 0.3s ease;
+}
+
+.top-bar__indicator.is-active {
+  width: 15px;
+  border-radius: 5px;
+  background: #ffffff;
+}
+
+html[dir="rtl"] .top-bar__indicators {
+  right: auto;
+  left: 0;
+}
+
+@keyframes rosa-promo-in {
+  from {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 768px) {
-  .top-bar__container {
-    flex-direction: column;
-    gap: var(--spacing-xs);
-    text-align: center;
+  .top-bar {
+    min-height: 48px;
+    padding: 10px 18px;
+    font-size: 13px;
   }
-  .top-bar__item {
-    font-size: 10px;
+
+  .top-bar__container {
+    min-height: 25px;
+  }
+
+  .top-bar__message {
+    gap: 8px;
+    max-width: 100%;
+  }
+
+  .top-bar__text {
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .top-bar__indicators {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .top-bar__message {
+    animation: none;
+  }
+
+  .top-bar__indicator {
+    transition: none;
+  }
+}
+
+/* ROSA luxury promo bar */
+.top-bar {
+  height: 76px !important;
+  min-height: 76px !important;
+  padding: 18px 20px !important;
+  box-sizing: border-box !important;
+}
+
+.top-bar__container {
+  min-height: 32px;
+}
+
+.top-bar__text {
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  line-height: 1.7;
+}
+
+.top-bar__icon svg {
+  width: 20px !important;
+  height: 20px !important;
+}
+
+@media (max-width: 768px) {
+  .top-bar {
+    height: 64px !important;
+    min-height: 64px !important;
+    padding: 12px 16px !important;
+  }
+
+  .top-bar__text {
+    font-size: 15px !important;
   }
 }
