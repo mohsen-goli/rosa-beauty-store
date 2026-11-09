@@ -5,6 +5,7 @@
   useState,
   type ReactNode,
 } from "react";
+
 import { supabase } from "../lib/supabase";
 import type { Product } from "../types";
 
@@ -24,15 +25,22 @@ export function ProductsProvider({ children }: { children: ReactNode }) {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    async function fetchProducts() {
-      setLoading(true);
-      setError(null);
+    let mounted = true;
+
+    async function fetchProducts(initialLoad = false) {
+      if (initialLoad && mounted) {
+        setLoading(true);
+      }
 
       const { data, error } = await supabase
         .from("products")
-        .select("id, name, description, price, image_url, category, stock, is_active")
+        .select(
+          "id, name, description, price, image_url, category, stock, is_active",
+        )
         .eq("is_active", true)
         .order("created_at", { ascending: false });
+
+      if (!mounted) return;
 
       if (error) {
         console.error("Supabase products error:", error);
@@ -54,10 +62,38 @@ export function ProductsProvider({ children }: { children: ReactNode }) {
       }));
 
       setProducts(mappedProducts);
+      setError(null);
       setLoading(false);
     }
 
-    fetchProducts();
+    // دریافت اولیه محصولات
+    fetchProducts(true);
+
+    // گوش دادن به تغییرات زنده محصولات
+    const productsChannel = supabase
+      .channel("rosa-products-realtime")
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "products",
+        },
+        (payload) => {
+          console.log("ROSA products changed:", payload.eventType);
+
+          fetchProducts();
+        },
+      )
+      .subscribe((status) => {
+        console.log("ROSA Realtime status:", status);
+      });
+
+    // پاکسازی هنگام خروج از صفحه
+    return () => {
+      mounted = false;
+      supabase.removeChannel(productsChannel);
+    };
   }, []);
 
   return (
