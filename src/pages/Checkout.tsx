@@ -30,7 +30,7 @@ function Checkout() {
   const { cart, cartTotal, clearCart } = useCart();
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
-  const currency = cart[0]?.currency ?? "USD";
+  const currency = cart[0]?.currency ?? "IRR";
   const formattedCartTotal = formatPrice(cartTotal, currency, i18n.resolvedLanguage || i18n.language);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
