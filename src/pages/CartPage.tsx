@@ -15,6 +15,7 @@ import { useCart } from "../context/CartContext";
 import { useToast } from "../components/ToastProvider";
 import { useProducts } from "../context/ProductsContext";
 import ProductCard from "../components/ProductCard";
+import { formatPrice } from "../utils/formatPrice";
 import "./CartPage.css";
 
 function CartPage() {
@@ -31,7 +32,7 @@ function CartPage() {
   const { showSuccess, showError } = useToast();
   const { products } = useProducts();
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const [promoCode, setPromoCode] = useState("");
   const [discount, setDiscount] = useState(0);
@@ -51,6 +52,8 @@ function CartPage() {
 
   const discountAmount = (cartTotal * discount) / 100;
   const finalTotal = cartTotal - discountAmount;
+  const currency = cart[0]?.currency ?? "USD";
+  const format = (amount: number) => formatPrice(amount, currency, i18n.resolvedLanguage || i18n.language);
 
   if (cart.length === 0) {
     const suggestedProducts = products ? products.slice(0, 4) : [];
@@ -117,7 +120,7 @@ function CartPage() {
                     {item.name}
                   </Link>
 
-                  <p className="cart-item__price">${item.price}</p>
+                  <p className="cart-item__price">{formatPrice(item.price, item.currency, i18n.resolvedLanguage || i18n.language)}</p>
                 </div>
 
                 <div className="cart-item__quantity">
@@ -139,7 +142,7 @@ function CartPage() {
                 </div>
 
                 <p className="cart-item__total">
-                  ${(item.price * item.quantity).toFixed(2)}
+                  {formatPrice(item.price * item.quantity, item.currency, i18n.resolvedLanguage || i18n.language)}
                 </p>
 
                 <button
@@ -193,13 +196,13 @@ function CartPage() {
 
             <div className="cart-summary__row">
               <span>{t("cartPage.subtotal")}</span>
-              <span>${cartTotal.toFixed(2)}</span>
+              <span>{format(cartTotal)}</span>
             </div>
 
             {discount > 0 && (
               <div className="cart-summary__row discount-row">
                 <span>{t("cartPage.discount", { percent: discount })}</span>
-                <span>-${discountAmount.toFixed(2)}</span>
+                <span>-{format(discountAmount)}</span>
               </div>
             )}
 
@@ -212,7 +215,7 @@ function CartPage() {
 
             <div className="cart-summary__row cart-summary__total">
               <span>{t("cartPage.total")}</span>
-              <span>${finalTotal.toFixed(2)}</span>
+              <span>{format(finalTotal)}</span>
             </div>
 
             <button
