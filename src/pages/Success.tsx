@@ -1,14 +1,16 @@
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { CheckCircle } from "lucide-react";
+import { formatPrice, type StoreCurrency } from "../utils/formatPrice";
 
 interface SuccessState {
   orderNumber?: string;
   total?: number;
+  currency?: StoreCurrency;
 }
 
 function Success() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const location = useLocation();
 
   const order = location.state as SuccessState | null;
@@ -30,7 +32,7 @@ function Success() {
           {typeof order.total === "number" && (
             <p>
               <strong>{t("successPage.orderTotal")}:</strong> $
-              {order.total.toFixed(2)}
+              {formatPrice(order.total, order.currency ?? "USD", i18n.resolvedLanguage || i18n.language)}
             </p>
           )}
         </div>
