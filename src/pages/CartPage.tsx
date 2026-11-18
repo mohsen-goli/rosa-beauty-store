@@ -52,7 +52,7 @@ function CartPage() {
 
   const discountAmount = (cartTotal * discount) / 100;
   const finalTotal = cartTotal - discountAmount;
-  const currency = cart[0]?.currency ?? "USD";
+  const currency = cart[0]?.currency ?? "IRR";
   const format = (amount: number) => formatPrice(amount, currency, i18n.resolvedLanguage || i18n.language);
 
   if (cart.length === 0) {
