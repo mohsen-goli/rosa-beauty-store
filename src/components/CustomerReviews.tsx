@@ -1,4 +1,5 @@
-import { FormEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import type { FormEvent } from "react";
 import { Star, Send, MessageCircle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { supabase } from "../lib/supabase";
