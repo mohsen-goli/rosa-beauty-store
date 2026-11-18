@@ -1,4 +1,6 @@
 import type { Product, CartItem } from "../types";
+import { formatPrice } from "../utils/formatPrice";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ShoppingBag, Star, Heart } from "lucide-react";
@@ -13,6 +15,7 @@ interface ProductCardProps {
 
 function ProductCard({ product, onAddToCart }: ProductCardProps) {
   const { showSuccess, showWishlist } = useToast();
+  const { i18n } = useTranslation();
   const { toggleWishlist, isInWishlist } = useWishlist();
 
   const inWishlist = isInWishlist(product.id);
@@ -71,7 +74,7 @@ function ProductCard({ product, onAddToCart }: ProductCardProps) {
             <span>{product.rating}</span>
           </div>
 
-          <strong>${product.price}</strong>
+          <strong>{formatPrice(product.price, product.currency, i18n.resolvedLanguage || i18n.language)}</strong>
 
           <motion.button
             className="add-to-cart-button"
