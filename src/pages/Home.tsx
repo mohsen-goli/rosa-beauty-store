@@ -14,6 +14,7 @@ import {
 import { useCart } from "../context/CartContext";
 import ProductCard from "../components/ProductCard";
 import BrandsCarousel from "../components/BrandsCarousel";
+import CustomerReviews from "../components/CustomerReviews";
 import HeroCarousel from "../components/HeroCarousel";
 import { useProducts } from "../context/ProductsContext";
 
@@ -325,6 +326,8 @@ function Home() {
           </div>
         </div>
       </section>
+
+      <CustomerReviews />
 
       {/* Journal teaser */}
       <section className="home-journal">
