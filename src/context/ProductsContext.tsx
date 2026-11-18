@@ -119,7 +119,7 @@ export function ProductsProvider({ children }: { children: ReactNode }) {
         const variants = (variantsResult.data ?? []) as VariantRow[];
         const images = (imagesResult.data ?? []) as ImageRow[];
 
-        // Keep every product and the cart in one currency. Prefer USD only
+        // Read the live catalog and keep product/cart prices in one currency. Prefer USD only
         // when every active variant has a USD price; otherwise use IRR.
         const useUsdPricing =
           variants.length > 0 &&
