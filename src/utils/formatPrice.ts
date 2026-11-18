@@ -2,7 +2,7 @@ export type StoreCurrency = "USD" | "IRR";
 
 export function formatPrice(
   amount: number,
-  currency: StoreCurrency,
+  currency: StoreCurrency = "IRR",
   language = "en",
 ): string {
   const locale =
