@@ -6,6 +6,7 @@ import {
   type ReactNode,
 } from "react";
 import type { CartItem, Product } from "../types";
+import { useProducts } from "./ProductsContext";
 
 interface CartContextValue {
   cart: CartItem[];
@@ -21,6 +22,7 @@ interface CartContextValue {
 const CartContext = createContext<CartContextValue | undefined>(undefined);
 
 export function CartProvider({ children }: { children: ReactNode }) {
+  const { products, loading: productsLoading } = useProducts();
   const [cart, setCart] = useState<CartItem[]>(() => {
     try {
       const saved = localStorage.getItem("rosa-cart");
@@ -33,6 +35,22 @@ export function CartProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     localStorage.setItem("rosa-cart", JSON.stringify(cart));
   }, [cart]);
+
+  // Refresh saved cart snapshots with the current catalog price, currency and
+  // localized product details after the live catalog has loaded.
+  useEffect(() => {
+    if (productsLoading) return;
+    setCart((currentCart) =>
+      currentCart.map((item) => {
+        const currentProduct = products.find(
+          (product) => String(product.id) === String(item.id),
+        );
+        return currentProduct
+          ? { ...currentProduct, quantity: item.quantity }
+          : item;
+      }),
+    );
+  }, [products, productsLoading]);
 
   function addToCart(product: CartItem) {
     setCart((currentCart) => {

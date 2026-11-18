@@ -17,10 +17,11 @@ import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
 import { useToast } from "../components/ToastProvider";
 import ProductCard from "../components/ProductCard";
+import { formatPrice } from "../utils/formatPrice";
 import "./ProductDetail.css";
 
 function ProductDetail() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -167,10 +168,10 @@ function ProductDetail() {
             </div>
 
             <div className="product-main__price">
-              <strong>${product.price}</strong>
+              <strong>{formatPrice(product.price, product.currency, i18n.resolvedLanguage || i18n.language)}</strong>
 
               {product.oldPrice && (
-                <span className="old-price">${product.oldPrice}</span>
+                <span className="old-price">{formatPrice(product.oldPrice, product.currency, i18n.resolvedLanguage || i18n.language)}</span>
               )}
             </div>
 

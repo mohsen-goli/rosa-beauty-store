@@ -152,9 +152,9 @@ function App() {
   return (
     <BrowserRouter>
       <ToastProvider>
-        <CartProvider>
-          <WishlistProvider>
-            <ProductsProvider>
+        <ProductsProvider>
+          <CartProvider>
+            <WishlistProvider>
               <Header />
 
               <main>
@@ -162,9 +162,9 @@ function App() {
               </main>
 
               <Footer />
-            </ProductsProvider>
-          </WishlistProvider>
-        </CartProvider>
+            </WishlistProvider>
+          </CartProvider>
+        </ProductsProvider>
       </ToastProvider>
     </BrowserRouter>
   );

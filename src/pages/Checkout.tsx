@@ -5,6 +5,7 @@ import { ArrowLeft, Lock, ShieldCheck } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import { supabase } from "../lib/supabase";
 import "./Checkout.css";
+import { formatPrice } from "../utils/formatPrice";
 
 interface CheckoutFormData {
   firstName: string;
@@ -28,7 +29,9 @@ interface CreatedOrder {
 function Checkout() {
   const { cart, cartTotal, clearCart } = useCart();
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currency = cart[0]?.currency ?? "IRR";
+  const formattedCartTotal = formatPrice(cartTotal, currency, i18n.resolvedLanguage || i18n.language);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
@@ -151,6 +154,7 @@ function Checkout() {
         state: {
           orderNumber: String(createdOrder.order_number),
           total: orderTotal,
+          currency,
         },
       });
     } catch (error) {
@@ -325,7 +329,7 @@ function Checkout() {
             >
               {isSubmitting
                 ? t("checkoutPage.processing")
-                : `${t("checkoutPage.placeOrder")} - $${cartTotal.toFixed(2)}`}
+                : `${t("checkoutPage.placeOrder")} - ${formattedCartTotal}`}
               <Lock size={18} />
             </button>
           </form>
@@ -343,7 +347,7 @@ function Checkout() {
 
                   <div className="summary-item__info">
                     <p>{item.name}</p>
-                    <span>${(item.price * item.quantity).toFixed(2)}</span>
+                    <span>{formatPrice(item.price * item.quantity, item.currency, i18n.resolvedLanguage || i18n.language)}</span>
                   </div>
                 </div>
               ))}
@@ -353,7 +357,7 @@ function Checkout() {
 
             <div className="summary-row">
               <span>{t("checkoutPage.subtotal")}</span>
-              <span>${cartTotal.toFixed(2)}</span>
+              <span>{formattedCartTotal}</span>
             </div>
 
             <div className="summary-row">
