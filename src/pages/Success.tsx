@@ -31,8 +31,8 @@ function Success() {
 
           {typeof order.total === "number" && (
             <p>
-              <strong>{t("successPage.orderTotal")}:</strong> $
-              {formatPrice(order.total, order.currency ?? "USD", i18n.resolvedLanguage || i18n.language)}
+              <strong>{t("successPage.orderTotal")}:</strong> 
+              {formatPrice(order.total, order.currency ?? "IRR", i18n.resolvedLanguage || i18n.language)}
             </p>
           )}
         </div>
