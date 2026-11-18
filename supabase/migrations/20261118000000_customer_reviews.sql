@@ -8,7 +8,7 @@ create table if not exists public.reviews (
  status text not null default 'pending' check (status in ('pending','approved','rejected')),
  is_demo boolean not null default false,
  created_at timestamptz not null default now(),
- constraint reviews_email_format check (email ~* '^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$'),
+ constraint reviews_email_format check (email ~* '^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$'),
  constraint reviews_text_length check (char_length(trim(review)) between 10 and 1200),
  constraint reviews_name_length check (display_name is null or char_length(display_name) <= 80)
 );
@@ -28,7 +28,7 @@ with check (exists (select 1 from public.profiles p where p.id = auth.uid() and 
 create or replace function public.submit_review(p_display_name text, p_email text, p_rating integer, p_review text)
 returns void language plpgsql security definer set search_path = public as $$
 begin
- if p_email is null or p_email !~* '^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$' then raise exception 'A valid email address is required'; end if;
+ if p_email is null or p_email !~* '^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$' then raise exception 'A valid email address is required'; end if;
  if p_rating is null or p_rating < 1 or p_rating > 5 then raise exception 'Rating must be between 1 and 5'; end if;
  if p_review is null or char_length(trim(p_review)) < 10 or char_length(trim(p_review)) > 1200 then raise exception 'Review must be between 10 and 1200 characters'; end if;
  insert into public.reviews(display_name,email,rating,review,status,is_demo)
