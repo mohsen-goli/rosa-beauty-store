@@ -55,7 +55,6 @@ const ProductsContext = createContext<ProductsContextValue | undefined>(
 const categoryMap: Record<string, string> = {
   lipstick: "makeup",
   perfume: "fragrance",
-  haircare: "body-care",
 };
 
 export function ProductsProvider({ children }: { children: ReactNode }) {
